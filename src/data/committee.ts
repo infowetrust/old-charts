@@ -1,4 +1,4 @@
-export default {
+const data: any = {
   "14b": [
     { month: 1, tons: 64.6 },
     { month: 2, tons: 72.7 },
@@ -14,3 +14,5 @@ export default {
     { month: 12, tons: 58.2 },
   ],
 };
+
+export default data
