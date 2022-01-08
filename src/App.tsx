@@ -2,6 +2,8 @@ import { scaleLinear, scaleBand, extent, line } from "d3";
 import { AxisLeft, AxisBottom } from "@visx/axis";
 import _, { uniq, map } from "lodash";
 
+import Curve from "./components/Curve"
+
 import committee from "./data/committee";
 
 const tons = _.map(committee["14b"], "tons");
@@ -62,6 +64,7 @@ function App() {
 
   return (
     <div style={{ margin: 20 }}>
+      <Curve/>
       <p>14.</p>
       <p>
         It is often desirable to include in the diagram the numerical data or
@@ -110,7 +113,7 @@ function App() {
         {/* data */}
         {typeof _tonsLine === "string" && (
           <path
-            stroke={"black"}
+            stroke={"red"}
             strokeWidth={5}
             fill="none"
             strokeLinecap="round"
