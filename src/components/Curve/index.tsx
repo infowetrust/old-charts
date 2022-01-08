@@ -3,10 +3,13 @@ import { scaleLinear, scaleBand, extent, line } from "d3";
 import _, { uniq, map } from "lodash";
 
 import committee from "../../data/committee";
-
-export default function Curve() {
-
-
+// properties
+type Props = {
+  lineColor?: string
+}
+export default function Curve(props: Props) {
+  const { lineColor } = props
+  console.log(props)
 
   const tons = _.map(committee["14b"], "tons");
   const months = _.map(committee["14b"], "month");
@@ -51,6 +54,8 @@ export default function Curve() {
       return _scaleXLine(i);
     })
     .y((d) => {
+      //Argument of type '[number, number]' is not assignable to parameter of type 'NumberValue'.\n  Type '[number, number]' is not assignable to type 'number'.",
+      // @ts-ignore
       return _scaleY(d);
     });
 
@@ -66,7 +71,6 @@ export default function Curve() {
 
   return (
     <div style={{ margin: 20 }}>
-      <Curve />
       <p>14.</p>
       <p>
         It is often desirable to include in the diagram the numerical data or
@@ -115,7 +119,7 @@ export default function Curve() {
         {/* data */}
         {typeof _tonsLine === "string" && (
           <path
-            stroke={"red"}
+            stroke={lineColor || "pink"}
             strokeWidth={5}
             fill="none"
             strokeLinecap="round"
@@ -212,7 +216,6 @@ export default function Curve() {
     </div>
   );
 
-  export default App;
 
 
 
