@@ -1,6 +1,8 @@
 import { scaleLinear, scaleBand, extent, line } from "d3";
 // import { AxisLeft, AxisBottom } from "@visx/axis";
+import { PatternLines } from '@visx/pattern'; // https://airbnb.io/visx/docs/pattern
 import _, { uniq, map } from "lodash";
+
 
 import committee from "../../data/committee";
 // properties
@@ -49,6 +51,8 @@ export default function Curve(props: Props) {
   const _scaleXLine = scaleLinear().domain([0, 11]).range([margin, gridRight]);
   const _scaleDate = scaleBand().domain(months).range([0, gridWidth]);
 
+
+
   const _lineMaker = line()
     .x((d, i) => {
       return _scaleXLine(i);
@@ -71,9 +75,9 @@ export default function Curve(props: Props) {
 
   return (
     <div style={{ margin: 20 }}>
-      <p>14.</p>
+      <p><i>1915 Standards for Graphic Presentation</i></p>
       <p>
-        It is often desirable to include in the diagram the numerical data or
+        14. It is often desirable to include in the diagram the numerical data or
         formulae represented.
       </p>
       <svg
@@ -81,6 +85,10 @@ export default function Curve(props: Props) {
         height={svgSize}
       // style={{ border: "1px solid pink" }}
       >
+        <mask id="gridMask">
+          <rect x={margin} y={gridTop} width={gridWidth} height={gridHeight} fill="white" />
+        </mask>
+
         {/* horizontal lines including bolded zero line */}
         {leftTicks.map((tons, i) => {
           return (
@@ -124,6 +132,7 @@ export default function Curve(props: Props) {
             fill="none"
             strokeLinecap="round"
             d={_tonsLine}
+            mask="url(#gridMask)" // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask
           />
         )}
         {/* top text */}

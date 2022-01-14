@@ -1,0 +1,38 @@
+const data: any = {
+  "1914": [
+    { state: "Dist. of Columbia", year: 1914, percent: 1.6 },
+    { state: "Florida", year: 1914, percent: 2.3 },
+    { state: "Montana", year: 1914, percent: 7.6 },
+    { state: "Pennsylvania", year: 1914, percent: 2.6 },
+    { state: "Minnesota", year: 1914, percent: 3.0 },
+    { state: "New Jersey", year: 1914, percent: 1.7 },
+    { state: "Georgia", year: 1914, percent: 4.7 },
+    { state: "Nebraska", year: 1914, percent: 3.2 },
+    { state: "New York", year: 1914, percent: 1.8 },
+    { state: "West Virginia", year: 1914, percent: 4.3 },
+    { state: "Illinois", year: 1914, percent: 1.7 },
+    { state: "Wisconsin", year: 1914, percent: 3.1 },
+    { state: "Connecticut", year: 1914, percent: 1.9 },
+    { state: "Massachusetts", year: 1914, percent: 3.0 },
+    { state: "Colorado", year: 1914, percent: 5.9 },
+  ],
+  "1919": [
+    { state: "Dist. of Columbia", year: 1919, percent: 0.9 },
+    { state: "Florida", year: 1919, percent: 2.5 },
+    { state: "Montana", year: 1919, percent: 2.6 },
+    { state: "Pennsylvania", year: 1919, percent: 2.6 },
+    { state: "Minnesota", year: 1919, percent: 2.9 },
+    { state: "New Jersey", year: 1919, percent: 3.0 },
+    { state: "Georgia", year: 1919, percent: 3.2 },
+    { state: "Nebraska", year: 1919, percent: 3.2 },
+    { state: "New York", year: 1919, percent: 3.3 },
+    { state: "West Virginia", year: 1919, percent: 3.4 },
+    { state: "Illinois", year: 1919, percent: 3.4 },
+    { state: "Wisconsin", year: 1919, percent: 3.6 },
+    { state: "Connecticut", year: 1919, percent: 3.6 },
+    { state: "Massachusetts", year: 1919, percent: 3.6 },
+    { state: "Colorado", year: 1919, percent: 3.6 },
+  ],
+};
+
+export default data
