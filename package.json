@@ -1,12 +1,12 @@
 {
   "name": "charts",
   "version": "0.0.0",
+  "homepage": "https://infowetrust.github.io/old-charts",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
-  "homepage": "https://infowetrust.github.io/old-charts",
   "dependencies": {
     "@visx/axis": "^2.4.0",
     "@visx/curve": "^2.1.0",
