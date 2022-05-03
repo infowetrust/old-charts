@@ -23,7 +23,7 @@ export default function Column(props: Props) {
   2. Grid labels
   3. Data marks
   4. Data labels
-  5. Guide lines   
+  5. (hidden) Guide lines   
   */
 
   {/* 0. Map data to dimensions */ }
@@ -32,27 +32,31 @@ export default function Column(props: Props) {
   const nIndependents = independents.length;
 
   const dependents = _.map(cheysson["1906-21"], "tons");
-  const maxDependents = 16; //chosen height of y-axis
+  const maxDependents = 16; //chosen extent of y-axis
   //alternate (not good for large arrays): Math.max(...ticks);
   //consider moving avg, e.g. from https://poopcode.com/calculate-moving-average-of-an-array-of-numbers-in-javascript/
 
-  //establish vertical ticks and their x1
+  //establish vertical ticks & their horizontal extent
   const ticks = [0, 2, 4, 6, 8, 10];//define vertical ticks
   const xTicks = [0, 0, 0, 6, 15, 16]; //mask gridlines
 
   //style
   const colorA = "lightblue";
-  const colorGrid = "black";
+  const colorGrid = "darkslategray";
 
-  const guideColor = "cyan";
-  const guideStroke = "0";
+  const guideColor = "none";
+  const guideStroke = "1";
 
-  const strokeWidth = 1;
-  const strokeWidthGrid = 1;
-  const strokeWidthEmphasis = 3;
+  const strokeWidth = 1; //horizontal gridlines
   const halfStrokeWidth = strokeWidth / 2;
+  const strokeWidthMedium = 2;
+  const strokeWidthBold = 3; //baseline
+  const strokeWidthHeavy = 5; //baseline\
 
-  const underLine = 24;
+  const fontWeightNormal = 500;
+  const fontWeightEmphasis = 600;
+
+  const underLine = 24; //length of title underlines
 
   const h1 = "2em";
   const h2 = "1.5em";
@@ -60,29 +64,31 @@ export default function Column(props: Props) {
   const h4 = ".8em";
 
   {/* 1. Canvas and grid */ }
-  //define SVG canvas
-  const contentSize = 480;
-  const paddingH = 60;
-  const paddingBottom = 50;
-  const border = 6;
+  const chartWidth = 480; //encompasses grid and labels
+  const chartHeight = chartWidth;
 
-  //establish grid
-  const gridWidth = contentSize - paddingH - paddingH;
+  const gridWidth = 370; //grid is area for marks
   const gridHeight = gridWidth;
 
+  const channelSides = chartWidth - gridWidth;
+  const channelSide = channelSides / 2; //channel = spaces for labels around grid
+  const channelBottom = 50;
+  const channelTop = chartHeight - gridHeight - channelBottom;
+
+  const border = 6; //border = empty space outside chart.
+
   //calculate SVG positions of grid sides
-  const gridTop = border + contentSize - paddingBottom - gridHeight;
-  const gridBottom = border + contentSize - paddingBottom;
-  const gridRight = border + paddingH + gridWidth;
-  const gridLeft = border + paddingH;
+  const gridTop = border + channelTop;
+  const gridBottom = border + channelTop + gridHeight;
+  const gridLeft = border + channelSide;
+  const gridRight = border + channelSide + gridWidth;
 
   //calculate grid cell sizes
   const gridCellX = gridWidth / (nIndependents);
-  const gridCellY = gridHeight / (maxDependents - 1) * 2;
-  //above multiplier accounts for ticks skipping odds
+  const gridCellY = gridHeight / (maxDependents - 1) * 2; //multiplier accounts for ticks skipping odds
 
   {/* 1. Canvas and grid */ }
-  const verticalCenterAxisLabel = 5;
+  const tweakVerticalAxisLabel = 5;
 
   const _scaleX = scaleLinear().domain([0, nIndependents]).range([gridLeft, gridRight]);
   const _scaleY = scaleLinear().domain([0, maxDependents - 1]).range([gridBottom, gridTop]);
@@ -102,28 +108,31 @@ export default function Column(props: Props) {
     }}>
 
       <svg
-        width={contentSize + 2 * border}
-        height={contentSize + 2 * border}
+        width={chartWidth + 2 * border}
+        height={chartHeight + 2 * border}
       >
-        <rect width="100%" height="100%" fill="oldlace" stroke="black" strokeWidth="5" />
+        <rect width="100%" height="100%" fill="oldlace" stroke="black" strokeWidth={strokeWidthHeavy} />
 
-        <rect x={border} y={border} width={paddingH} height={contentSize} stroke={colorGrid} strokeWidth={strokeWidthGrid} fill="none"></rect>
-        <rect x={gridLeft} y={border} width={gridWidth} height={contentSize} stroke={colorGrid} strokeWidth={strokeWidthGrid} fill="none"></rect>
-        <rect x={gridRight} y={border} width={paddingH} height={contentSize} stroke={colorGrid} strokeWidth={strokeWidthGrid} fill="none"></rect>
+        <rect x={border} y={border} width={channelSide} height={chartHeight}
+          stroke={colorGrid} strokeWidth={strokeWidth} fill="none"></rect>
+        <rect x={gridLeft} y={border} width={gridWidth} height={chartHeight}
+          stroke={colorGrid} strokeWidth={strokeWidth} fill="none"></rect>
+        <rect x={gridRight} y={border} width={channelSide} height={chartHeight}
+          stroke={colorGrid} strokeWidth={strokeWidth} fill="none"></rect>
 
         {/* 2. Grid labels*/}
-        {/* horizontal axis labels */}
+        {/* x-axis labels */}
         {independents.map((year, i) => {
           const verticalOffset = 10;
-          const horizontalOffset = 5;
-          const textX = gridLeft + i * gridCellX + gridCellX / 2 + horizontalOffset;
+          const horizontalOffset = gridCellX / 2 + 5;
+          const textX = gridLeft + i * gridCellX + horizontalOffset;
           const textY = gridBottom + verticalOffset;
 
           return (
             <text
               key={`bottomText--${i}`}
               textAnchor="end"
-              fontWeight={independents[i] % 5 === 0 ? 700 : 100}
+              fontWeight={independents[i] % 5 === 0 ? fontWeightEmphasis : fontWeightNormal}
               x={textX}
               y={textY}
               transform={`rotate(270, ${textX}, ${textY})`}
@@ -133,14 +142,14 @@ export default function Column(props: Props) {
           );
         })}
 
-        {/* left vertical axis labels */}
+        {/* left y-axis labels */}
         {ticks.map((tick, i) => {
-          const textX = gridLeft - paddingH / 2;
-          const textY = gridBottom - i * gridCellY + verticalCenterAxisLabel;
+          const textX = gridLeft - channelSide / 2;
+          const textY = gridBottom - i * gridCellY + tweakVerticalAxisLabel;
           return (
             <text
               key={`bottomText--${i}`}
-              fontWeight={700}
+              fontWeight={fontWeightEmphasis}
               opacity={i < 4 ? 100 : 0}
               x={textX}
               y={textY}
@@ -151,16 +160,16 @@ export default function Column(props: Props) {
           );
         })}
 
-        {/* right vertical axis labels */}
+        {/* right y-axis labels */}
         {ticks.map((tick, i) => {
           const horizontalOffset = 0; // hardcoded
-          const textX = gridRight + (paddingH / 2);
-          const textY = gridBottom - i * gridCellY + verticalCenterAxisLabel;
+          const textX = gridRight + (channelSide / 2);
+          const textY = gridBottom - i * gridCellY + tweakVerticalAxisLabel;
 
           return (
             <text
               key={`bottomText--${i}`}
-              fontWeight={700}
+              fontWeight={fontWeightEmphasis}
               opacity={i < 6 ? 100 : 0}
               x={textX}
               y={textY}
@@ -173,36 +182,37 @@ export default function Column(props: Props) {
 
         {/* Chart Labels */}
         <text y={gridTop} textAnchor="middle"        >
-          <tspan x={gridLeft - paddingH / 2} dy="0" font-size={h4}>Millions</tspan>
-          <tspan x={gridLeft - paddingH / 2} dy="1.2em" font-size={h4}>de</tspan>
-          <tspan x={gridLeft - paddingH / 2} dy="1.2em" font-size={h4} >Tonnes</tspan>
+          <tspan x={gridLeft - channelSide / 2} dy="0" font-size={h4}>Millions</tspan>
+          <tspan x={gridLeft - channelSide / 2} dy="1.2em" font-size={h4}>de</tspan>
+          <tspan x={gridLeft - channelSide / 2} dy="1.2em" font-size={h4} >Tonnes</tspan>
         </text>
         <line
-          x1={gridLeft - paddingH / 2 - underLine / 2}
-          x2={gridLeft - paddingH / 2 + underLine / 2}
+          x1={gridLeft - channelSide / 2 - underLine / 2}
+          x2={gridLeft - channelSide / 2 + underLine / 2}
           y1={gridTop + 40} //tk define these better?
           y2={gridTop + 40}
           stroke={colorGrid}
-          strokeWidth={strokeWidthGrid}
+          strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
 
         <text y={gridTop} textAnchor="middle"        >
-          <tspan x={gridRight + paddingH / 2} dy="0" font-size={h4}>Millions</tspan>
-          <tspan x={gridRight + paddingH / 2} dy="1.2em" font-size={h4}>de</tspan>
-          <tspan x={gridRight + paddingH / 2} dy="1.2em" font-size={h4} >Tonnes</tspan>
+          <tspan x={gridRight + channelSide / 2} dy="0" font-size={h4}>Millions</tspan>
+          <tspan x={gridRight + channelSide / 2} dy="1.2em" font-size={h4}>de</tspan>
+          <tspan x={gridRight + channelSide / 2} dy="1.2em" font-size={h4} >Tonnes</tspan>
         </text>
         <line
-          x1={gridRight + paddingH / 2 - underLine / 2}
-          x2={gridRight + paddingH / 2 + underLine / 2}
+          x1={gridRight + channelSide / 2 - underLine / 2}
+          x2={gridRight + channelSide / 2 + underLine / 2}
           y1={gridTop + 40}
           y2={gridTop + 40}
           stroke={colorGrid}
-          strokeWidth={strokeWidthGrid}
+          strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
 
         {/* 3. Data marks */}
+        {/* bars */}
         <PatternLines
           id="lines"
           height={5}
@@ -231,22 +241,7 @@ export default function Column(props: Props) {
           );
         })}
 
-        {/* horizontal grid lines */}
-        {ticks.map((dependents, i) => { //is dependents necessary?
-          return (
-            <line
-              key={`horizontal-gridline-${i}`}
-              x1={gridLeft + xTicks[i] * gridCellX - halfStrokeWidth}
-              x2={gridRight + halfStrokeWidth}
-              y1={gridBottom - i * gridCellY}
-              y2={gridBottom - i * gridCellY}
-              stroke={colorGrid}
-              z-index="10"
-              strokeWidth={i === 0 ? strokeWidthEmphasis : strokeWidth}
-            />
-          );
-        })}
-
+        {/* emphasized step line */}
         {dependents.map((elbow, i) => {
           const startX = gridLeft + i * gridCellX;
           const endX = startX + gridCellX
@@ -261,7 +256,7 @@ export default function Column(props: Props) {
             <path
               //mask="url(#gridMask)"
               stroke={colorGrid}
-              strokeWidth="2"
+              strokeWidth={strokeWidthMedium}
               fill="none"
               strokeLinecap="round"
               d={pathD}
@@ -271,29 +266,25 @@ export default function Column(props: Props) {
           );
         })}
 
-        {typeof _labelLine === "string" && (
-          <defs><path
-            id="labelPath"
-            stroke={"red"}
-            strokeWidth={strokeWidthEmphasis}
-            fill="none"
-            strokeLinecap="round"
-            d={_labelLine}
-          /></defs>
-        )}
-
-        <text>
-          <textPath
-            href="#labelPath"
-            textAnchor="middle"
-            startOffset="43%"
-            letterSpacing={".1em"}
-          >
-            Ensemble du Tonnage
-          </textPath>
-        </text>
+        {/* horizontal grid lines */}
+        {ticks.map((dependents, i) => { //is dependents necessary?
+          return (
+            <line
+              //key={`horizontal-gridline-${i}`}
+              x1={gridLeft + xTicks[i] * gridCellX - halfStrokeWidth}
+              x2={gridRight + halfStrokeWidth}
+              y1={gridBottom - i * gridCellY}
+              y2={gridBottom - i * gridCellY}
+              stroke={colorGrid}
+              z-index="10"
+              strokeWidth={i === 0 ? strokeWidthBold : strokeWidth}
+            />
+          );
+        })}
 
         {/*4. Data labels*/}
+
+        {/* Main chart label */}
         <text
           y={gridTop + 33}
           textAnchor="middle"
@@ -309,24 +300,47 @@ export default function Column(props: Props) {
           y1={gridTop + 40}
           y2={gridTop + 40}
           stroke={colorGrid}
-          strokeWidth={strokeWidthGrid}
+          strokeWidth={strokeWidth}
           strokeLinecap="round"
         />
 
+        {/* data-shaped class label */}
+        {typeof _labelLine === "string" && (
+          <defs>
+            <path
+              id="labelPath"
+              stroke={"red"}
+              strokeWidth={strokeWidthBold}
+              fill="none"
+              strokeLinecap="round"
+              d={_labelLine}
+            />
+          </defs>
+        )}
+
+        <text>
+          <textPath
+            href="#labelPath"
+            textAnchor="middle"
+            startOffset="43%"
+            letterSpacing={".1em"}
+          >
+            Ensemble du Tonnage
+          </textPath>
+        </text>
 
         {/* 5. Guide lines*/}
-
-        {/* CONTENT frame */}
+        {/* chart */}
         <rect
           x={border}
           y={border}
-          width={contentSize}
-          height={contentSize}
+          width={chartWidth}
+          height={chartHeight}
           stroke={guideColor}
           strokeWidth={guideStroke}
           fill="none"
         />
-        {/* grid box */}
+        {/* grid */}
         <rect
           x={gridLeft}
           y={gridTop}
@@ -338,8 +352,8 @@ export default function Column(props: Props) {
         />
 
       </svg>
-      <p>Inspired by an overlapping bar chart inset graphic by Émile Cheysson, "Navigation Intérieure. II. Tonnage kilométrique," in <i>Album du Statistique</i> (1906). See the original in the David Rumsey <a href="https://www.davidrumsey.com/luna/servlet/s/255jh3">Map&nbsp;Collection</a>.</p>
-      <p>We should also identify worthwhile flourishes here in a mini design essay/paragraph.</p>
+      <p>ABOUT THIS CHART. This chart was inspired by an inset graphic by Émile Cheysson, "Navigation Intérieure. II. Tonnage kilométrique," in <i>Album du Statistique</i> (1906). See the original, an overlapping column chart, in the David Rumsey <a href="https://www.davidrumsey.com/luna/servlet/s/255jh3">Map&nbsp;Collection</a>.</p>
+      <p>Design flourishes include asymetric vertical axis labels, emphasized labels every five years, emphasized baseline, a grid that only appears over data, and a label that follows the shape of the trend. <a href="https://github.com/infowetrust/old-charts/blob/main/src/components/Column/index.tsx">SEE THE CODE</a></p>
 
     </div >
   );

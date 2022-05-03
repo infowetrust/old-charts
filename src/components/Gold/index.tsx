@@ -3,7 +3,7 @@ import { scaleLinear, scaleBand, extent, line } from "d3";
 import _, { uniq, map } from "lodash";
 
 /* fancy stuff Micah suggested to make chart scalable */
-import nicb from "../../data/nicb";
+import goldratio from "../../data/goldratio";
 // properties
 type Props = {
   barColor?: string
@@ -23,13 +23,13 @@ export default function Bar(props: Props) {
 
   {/* 0. Map data to dimensions */ }
   //map data to independent and dependent dimensions
-  const independents = _.map(nicb["1914"], "state");
+  const independents = _.map(goldratio["notes"], "country");
   const nIndependents = independents.length;
 
-  const dependents14 = _.map(nicb["1914"], "percent");
+  const dependentsPercent = _.map(goldratio["notes"], "percent");
 
 
-  const dependents19 = _.map(nicb["1919"], "percent");
+  const dependentsPar = _.map(goldratio["notes"], "par");
 
   {/* 1. Canvas and grid */ }
   const guideColor = "cyan";
@@ -84,6 +84,7 @@ export default function Bar(props: Props) {
 
   return (
     <div style={{ marginLeft: 20 }}>
+      <p><i>Inspired by the 1923 A GRAPHIC ANALYSIS OF THE CENSUS OF MANUFACTURES.</i></p>
       <svg
         width={svgWidth}
         height={svgHeight}
@@ -238,12 +239,9 @@ export default function Bar(props: Props) {
           fill="none"
           display={guideDisplay}
         />
+
       </svg>
-      <b><br />Per Cent of Average Fluctuation in Employmen, by States, 1914 and 1919</b>
-
-      <p><br></br>ABOUT THIS CHART. This graphic table was inspired by "Chart 61" from <i>A Graphic Analysis of the Census of Manufactures</i> (1923) by the National Industrial Conference Board.</p>
-      <p>The primary design flourish is the use of overlapping bars in different styles—filled and outlined—to create the comparison between two different years. <a href="https://github.com/infowetrust/old-charts/blob/main/src/components/Column/index.tsx">SEE THE CODE</a></p>
-
+      <b>Chart 61. Per Cent of Average Fluctuation in Employmen, by States, 1914 and 1919</b>
     </div >
   );
 }
