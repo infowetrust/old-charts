@@ -1,7 +1,7 @@
 {
   "name": "charts",
   "version": "0.0.0",
-  "homepage": "https://infowetrust.github.io/old-charts",
+  "homepage": "https://infowetrust.github.io/old-charts/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
