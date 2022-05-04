@@ -7,7 +7,9 @@ export default function App() {
   return (
     <div>
       {/* for each color in colors array, render a Component using that color for the lineColor */}
-      {/* <p font-Family="Courier New">CHARTS: a growing collection of analog excellence reimagined for digital web.</p> */}
+      <h1>CHARTS!</h1>
+      <p className="tagline">Analog excellence digitized for the web.<br></br>
+        By RJ Andrews and friends.</p>
       <br /><br />
       <Column />
       <br /><br />
