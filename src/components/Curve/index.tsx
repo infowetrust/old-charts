@@ -74,7 +74,7 @@ export default function Curve(props: Props) {
   );
 
   return (
-    <div style={{ margin: 20 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <svg
         width={svgSize}
         height={svgSize}
@@ -217,9 +217,6 @@ export default function Curve(props: Props) {
           {_tonsSum}
         </text>
       </svg>
-
-      <p>ABOUT THIS CHART. This chart was inspired by example 14 from <i>Standards for Graphic Presentation</i> (1915). Its purpose was to emphasize that it "is often desirable to include in the diagram the numerical data or formulae represented." The <i>Standards</i> were an effort by a committee of leading American engineering, scientific, government, and businessmen. They hoped their recommended standards would improve how complex information was “imparted and interpreted.” See all <a href="https://infowetrust.com/project/1915-standards">seventeen standards</a>.</p>
-      <p>Design flourishes include an emphasized baseline, labels of data values, and a total summary value. Created with Colin Megill. <a href="https://github.com/infowetrust/old-charts/blob/main/src/components/Curve/index.tsx">SEE THE CODE</a></p>
     </div>
   );
 

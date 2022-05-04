@@ -1,4 +1,7 @@
-body,
+body{
+  margin-left: auto;
+  margin-right: auto;
+}
 p {
   font-family: Garamond, Georgia, 'Times New Roman', Times, serif;
   margin: 25px;
@@ -9,7 +12,7 @@ font-weight: 500;
 width: 25em;
 margin-left: auto;
 margin-right: auto;
-color: black;
+color: #333;
 background-color: #fff;
 }
 
@@ -25,19 +28,25 @@ margin-right: auto;
   color: black;
 }
 
+.line {
+  width: 45em;
+  margin-top: 2em;
+  margin-bottom: 4em;
+  margin-left: auto;
+  margin-right: auto;
+  border-bottom:2px solid #cccccc;
+}
+
 .tagline {
   font-family: helvetica, arial, sans-serif;
   text-align: center;
-  color: #363636;
+  color: #333;
   font-size: 14px;
-font-weight: 400;
-line-height: 18px;
+  line-height: 18px;
+  font-weight: 600;
+
 }
 
-image {
-  margin-left: auto;
-  margin-right: auto;
-}
 svg,
 svg > text {
   font-size: 1em;

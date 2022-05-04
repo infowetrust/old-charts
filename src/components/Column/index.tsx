@@ -51,7 +51,7 @@ export default function Column(props: Props) {
   const halfStrokeWidth = strokeWidth / 2;
   const strokeWidthMedium = 2;
   const strokeWidthBold = 3; //baseline
-  const strokeWidthHeavy = 5; //baseline\
+  const strokeWidthHeavy = 5; //baseline
 
   const fontWeightNormal = 500;
   const fontWeightEmphasis = 600;
@@ -97,15 +97,13 @@ export default function Column(props: Props) {
     .x((d, i) => {
       return _scaleX(i) + gridCellX / 2; // + centers on bar
     })
-    .y((d, i) => {
-      return _scaleY(i) - 15; // - raises label above marks
+    .y((d) => {
+      return _scaleY(d) - 15; // - raises label above marks
     });
   const _labelLine = _labelMaker(dependents);
 
   return (
-    <div style={{
-      margin: 20
-    }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
       <svg
         width={chartWidth + 2 * border}
@@ -352,9 +350,7 @@ export default function Column(props: Props) {
         />
 
       </svg>
-      <p>ABOUT THIS CHART. This chart was inspired by an inset graphic by Émile Cheysson, "Navigation Intérieure. II. Tonnage kilométrique," in <i>Album du Statistique</i> (1906). See the original, an overlapping column chart, in the David Rumsey <a href="https://www.davidrumsey.com/luna/servlet/s/255jh3">Map&nbsp;Collection</a>.</p>
-      <p>Design flourishes include asymetric vertical axis labels, emphasized labels every five years, emphasized baseline, a grid that only appears over data, and a label that follows the shape of the trend. <a href="https://github.com/infowetrust/old-charts/blob/main/src/components/Column/index.tsx">SEE THE CODE</a></p>
-
     </div >
+
   );
 }

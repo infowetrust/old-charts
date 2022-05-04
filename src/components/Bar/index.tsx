@@ -41,7 +41,7 @@ export default function Bar(props: Props) {
   const svgHeight = 500;
   const marginLeft = 350;
   const marginTop = 50;
-  const marginBottom = 20;
+  const marginBottom = 40;
 
 
   const column = [20, 70, 250, 300];
@@ -83,7 +83,7 @@ export default function Bar(props: Props) {
   //tk use scaleBand for bars instead?
 
   return (
-    <div style={{ marginLeft: 20 }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <svg
         width={svgWidth}
         height={svgHeight}
@@ -238,12 +238,11 @@ export default function Bar(props: Props) {
           fill="none"
           display={guideDisplay}
         />
+        <text y={gridBottom + 25} textAnchor="left" fontWeight="800">
+          <tspan x={column[0]} fontFamily="Courier New">Per Cent of Average Fluctuation in Employment, by States, 1914 and 1919</tspan>
+        </text>
       </svg>
-      <b><br />Per Cent of Average Fluctuation in Employmen, by States, 1914 and 1919</b>
-
-      <p><br></br>ABOUT THIS CHART. This graphic table was inspired by "Chart 61" from <i>A Graphic Analysis of the Census of Manufactures</i> (1923) by the National Industrial Conference Board.</p>
-      <p>The primary design flourish is the use of overlapping bars in different styles—filled and outlined—to create the comparison between two different years. <a href="https://github.com/infowetrust/old-charts/blob/main/src/components/Column/index.tsx">SEE THE CODE</a></p>
-
     </div >
   );
 }
+{/* <span>Per Cent of Average Fluctuation in Employmen, by States, 1914 and 1919</span> */ }
