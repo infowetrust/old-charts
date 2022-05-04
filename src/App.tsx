@@ -1,7 +1,6 @@
 import Curve from "./components/Curve"
 import Column from "./components/Column"
 import Bar from "./components/Bar"
-import Gold from "./components/Gold"
 
 App.get("*", function (req, res) {
   res.sendFile(__dirname + "/path/to/index.html")
@@ -19,7 +18,6 @@ export default function App() {
       <Bar />
       <br /><br />
       {colors.map(color => <Curve lineColor={color} />)}
-      {/* <Gold /> */}
     </div>
   );
 }
