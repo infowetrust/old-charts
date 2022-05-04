@@ -97,8 +97,8 @@ export default function Column(props: Props) {
     .x((d, i) => {
       return _scaleX(i) + gridCellX / 2; // + centers on bar
     })
-    .y((d) => {
-      return _scaleY(d) - 15; // - raises label above marks
+    .y((d, i) => {
+      return _scaleY(i) - 15; // - raises label above marks
     });
   const _labelLine = _labelMaker(dependents);
 
