@@ -3,7 +3,7 @@ import Column from "./components/Column"
 import Bar from "./components/Bar"
 import Gold from "./components/Gold"
 
-app.get("*", function (req, res) {
+App.get("*", function (req, res) {
   res.sendFile(__dirname + "/path/to/index.html")
 })
 
