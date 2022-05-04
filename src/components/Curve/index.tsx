@@ -56,9 +56,9 @@ export default function Curve(props: Props) {
       return _scaleXLine(i);
     })
     .y((d) => {
-      return _scaleY(d);
-      //Argument of type '[number, number]' is not assignable to parameter of type 'NumberValue'.\n  Type '[number, number]' is not assignable to type 'number'.",
       // @ts-ignore
+      return _scaleY(d);
+
     });
 
   const _tonsLine = _lineMaker(tons);
