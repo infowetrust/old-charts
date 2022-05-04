@@ -30,7 +30,6 @@ export default function Curve(props: Props) {
   
   */
 
-
   const svgSize = 350;
   const margin = 40;
 
@@ -52,14 +51,11 @@ export default function Curve(props: Props) {
   const _scaleDate = scaleBand().domain(months).range([0, gridWidth]);
 
 
-
   const _lineMaker = line()
     .x((d, i) => {
       return _scaleXLine(i);
     })
     .y((d) => {
-      //Argument of type '[number, number]' is not assignable to parameter of type 'NumberValue'.\n  Type '[number, number]' is not assignable to type 'number'.",
-      // @ts-ignore
       return _scaleY(d);
     });
 
