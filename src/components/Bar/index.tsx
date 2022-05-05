@@ -38,7 +38,7 @@ export default function Bar(props: Props) {
 
   //establish SVG canvas & grid
   const svgWidth = 800;
-  const svgHeight = 500;
+  const svgHeight = 800;
   const marginLeft = 350;
   const marginTop = 50;
   const marginBottom = 40;
@@ -61,7 +61,7 @@ export default function Bar(props: Props) {
   const h1 = "1.5em";
   const verticalOffset = 5;
 
-  const colorA = "mediumblue";
+  const colorA = "#336699";
   const colorB = "goldenrod";
 
   //calculate SVG positions of grid sides
