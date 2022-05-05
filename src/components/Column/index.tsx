@@ -97,11 +97,11 @@ export default function Column(props: Props) {
     .x((d, i) => {
       return _scaleX(i) + gridCellX / 2; // + centers on bar
     })
-    .y((d, i) => {
-      return _scaleY(i) - 15; // - raises label above marks
+    .y((d) => {
+      // @ts-ignore
+      return _scaleY(d) - 15; // - raises label above marks
     });
   const _labelLine = _labelMaker(dependents);
-  console.log(_labelLine);
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -317,8 +317,7 @@ export default function Column(props: Props) {
           </defs>
         )}
 
-        {/* TK BELOW LABEL IS BROKEN */}
-        {/* <text>
+        <text>
           <textPath
             href="#labelPath"
             textAnchor="middle"
@@ -327,7 +326,7 @@ export default function Column(props: Props) {
           >
             Ensemble du Tonnage
           </textPath>
-        </text> */}
+        </text>
 
         {/* 5. Guide lines*/}
         {/* chart */}
