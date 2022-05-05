@@ -9,13 +9,8 @@ type CurveType = keyof typeof allCurves;
 
 /* fancy stuff Micah Stubbs suggested to make chart scalable */
 import cheysson from "../../data/cheysson";
-// properties
-type Props = {
-  barColor?: string
-}
-export default function Column(props: Props) {
-  //const { lineColor } = props
-  //console.log(props)
+
+export default function Column() {
 
   /* 
   0. Map data to dimensions

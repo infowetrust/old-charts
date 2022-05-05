@@ -1,6 +1,7 @@
 import Curve from "./components/Curve"
 import Column from "./components/Column"
 import Bar from "./components/Bar"
+import Gold from "./components/Gold"
 
 export default function App() {
   const colors = ["red"]
@@ -26,6 +27,9 @@ export default function App() {
       <p>This line graph features an emphasized zero-baseline, data-value labels (above the chart), and a total summary value. Created with <a target="_blank" rel="noopener" href="https://twitter.com/colinmegill">Colin Megill</a>.</p>
       <p>This chart was inspired by example 14 from <i>Standards for Graphic Presentation</i> (1915). Its purpose was to emphasize that it "is often desirable to include in the diagram the numerical data or formulae represented." The <i>Standards</i> were an effort by a committee of leading American engineering, scientific, government, and businessmen. They hoped their recommended standards would improve how complex information was “imparted and interpreted.” See all <a target="_blank" rel="noopener" href="https://infowetrust.com/project/1915-standards">seventeen standards</a>.</p>
       <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Curve/index.tsx">CHART CODE</a></p>
+      <div className="line"></div>
+      <Gold />
+      <p>Description coming soon.</p>
       <div className="line"></div>
     </div>
   );

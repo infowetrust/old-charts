@@ -37,14 +37,14 @@ export default function Bar(props: Props) {
   const guideDisplay = "none";
 
   //establish SVG canvas & grid
-  const svgWidth = 800;
+  const svgWidth = 900;
   const svgHeight = 800;
   const marginLeft = 350;
   const marginTop = 50;
   const marginBottom = 40;
 
 
-  const column = [20, 70, 250, 300];
+  const column = [20, 70, 255, 305, marginLeft];
   const sumColumn = _.reduce(
     column,
     (sum, n) => {
@@ -70,7 +70,6 @@ export default function Bar(props: Props) {
   const gridRight = svgWidth;
 
   //calculate grid cell sizes
-  const gridCellX = gridWidth / (nIndependents);
   const gridCellY = gridHeight / (nIndependents);
   //above multiplier accounts for ticks skipping odds
 
@@ -88,6 +87,18 @@ export default function Bar(props: Props) {
         width={svgWidth}
         height={svgHeight}
       >
+        {/* background */}
+        <rect
+          x="0"
+          y="0"
+          width={svgWidth}
+          height={svgHeight}
+          // stroke={guideColor}
+          // strokeWidth={guideStroke}
+          fill="snow"
+
+        />
+
         {/* how to do this? */}
         <style type="text/css" >
         </style>
@@ -143,8 +154,8 @@ export default function Bar(props: Props) {
         <text y={gridTop} textAnchor="left" fontWeight="800">
           <tspan x={column[0]} fontFamily="Courier New">Rank</tspan>
           <tspan x={column[1]} fontFamily="Courier New">State</tspan>
-          <tspan x={column[2]} fontFamily="Courier New" fill={colorA}>1914</tspan>
-          <tspan x={column[3]} fontFamily="Courier New" fill={colorB}>1919</tspan>
+          <tspan x={(column[2] + column[3]) / 2} fontFamily="Courier New" fill={colorA} textAnchor="end">1914</tspan>
+          <tspan x={(column[3] + column[4]) / 2} fontFamily="Courier New" fill={colorB} textAnchor="end">1919</tspan>
         </text>
 
         {independents.map((year, i) => {
@@ -182,13 +193,12 @@ export default function Bar(props: Props) {
         })}
 
         {dependents14.map((percent, i) => {
-          const textX = column[2];
+          const textX = (column[2] + column[3]) / 2;
           const textY = marginTop + i * gridCellY + gridCellY / 2 + verticalOffset;
           return (
             <text
               key={`bottomText--${i}`}
-              textAnchor="left"
-              fontFamily="Courier New" //tk not working
+              textAnchor="end"
               x={textX}
               y={textY}
             >
@@ -198,14 +208,13 @@ export default function Bar(props: Props) {
         })}
 
         {dependents19.map((percent, i) => {
-          const textX = column[3];
+          const textX = (column[3] + column[4]) / 2;
           const textY = marginTop + i * gridCellY + gridCellY / 2 + verticalOffset;
 
           return (
             <text
               key={`bottomText--${i}`}
-              textAnchor="left"
-              fontFamily="Courier New" //tk not working
+              textAnchor="end"
               x={textX}
               y={textY}
             >
