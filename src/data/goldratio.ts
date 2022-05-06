@@ -6,7 +6,7 @@ const data: any = {
     { country: "Spain", ratio: 60, par: 80 },
     { country: "Denmark", ratio: 52, par: 79 },
     { country: "Sweden", ratio: 48, par: 98 },
-    { country: "U. Kingdom", ratio: 39, par: 90 },
+    { country: "U.Kingdom", ratio: 39, par: 90 },
     { country: "Norway", ratio: 39, par: 65 },
     { country: "France", ratio: 15, par: 47 },
     { country: "Italy", ratio: 5, par: 26 },

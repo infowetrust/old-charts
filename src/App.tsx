@@ -7,9 +7,15 @@ export default function App() {
   const colors = ["red"]
   return (
     <div>
-      <h1>CHARTS!</h1>
-      <p className="tagline">Analog excellence digitized for the web.<br></br>
-        By RJ Andrews and friends.</p>
+      <h1>&nbsp;CHARTS!</h1>
+      <p className="tagline">Analog excellence digitized for the web.<br />By RJ Andrews and friends.</p>
+      <div className="line"></div>
+      <Gold />
+      <p>This compound bar-chart compares the ratio of gold reserves of central banks to paper currency in circulation (left) to the relation of exchange rates to par value. It appeared as figure 102 in Karl. G. Karsten's <i>Charts and Graphs</i> (1925) with the caption, "Correlation is Indicated by Mirroring." </p>
+      <p>Karsten exhibited this chart in a chapter on composite bar-charts as an answer to overly-complex designs. His text explained:</p>
+      <p>"In fact, it can be laid down as a general rule that both the compound and the multiple bar-charts are too elaborate and complicated. A chart is always better the simpler it is, and we should make strong efforts to simplify these charts, and if possible reduce them to simple bar-charts. It usually pays well for sacrifices we make in this way, in legibility and interest to the reader, and after all, the chart of this type is generally directed at a reader, rather than at the maker. The only one of the three which stands out as absolutely simple and clear is the relative compound bar-chart, which consists of nothing more than a series of 100% bars."</p>
+      <p>Karsten's original caption attributes permission to Carl Snyder and dates the chart to March, 1922. See the original at the <a target="_blank" rel="noopener" href="https://archive.org/details/in.ernet.dli.2015.13852/page/n159/mode/2up">Internet Archive</a>.</p>
+      <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Gold/index.tsx">CHART CODE</a></p>
       <div className="line"></div>
       <Column />
       <p>This vertical bar chart, or <i>column chart</i>, features several flourishes which ehance its design: asymetric vertical axis labels, bolded baseline labels every five years, emphasized zero-baseline weight, a grid that only appears over data, and a series label that follows the shape of the trend.</p>
@@ -28,9 +34,7 @@ export default function App() {
       <p>This chart was inspired by example 14 from <i>Standards for Graphic Presentation</i> (1915). Its purpose was to emphasize that it "is often desirable to include in the diagram the numerical data or formulae represented." The <i>Standards</i> were an effort by a committee of leading American engineering, scientific, government, and businessmen. They hoped their recommended standards would improve how complex information was “imparted and interpreted.” See all <a target="_blank" rel="noopener" href="https://infowetrust.com/project/1915-standards">seventeen standards</a>.</p>
       <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Curve/index.tsx">CHART CODE</a></p>
       <div className="line"></div>
-      <Gold />
-      <p>Description coming soon.</p>
-      <div className="line"></div>
+      <p className="tagline"><a href="https://infowetrust.com/">INFO WE TRUST HOMEPAGE</a></p>
     </div>
   );
 }

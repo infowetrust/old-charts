@@ -16,6 +16,16 @@ color: #333;
 background-color: #fff;
 }
 
+a:link {
+  color: #359bd7;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #359bd7;
+  text-decoration: none;
+}
+
 h1 {
   font-size: 8vw;
   letter-spacing: 0.25vw;

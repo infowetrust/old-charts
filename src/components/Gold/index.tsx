@@ -18,7 +18,7 @@ export default function Gold() {
   */
 
   //styling
-  const colorA = "black";
+  const colorA = "midnightblue";
   const colorB = "white";
 
   const barRx = 2;
@@ -35,66 +35,56 @@ export default function Gold() {
 
   {/* 1. Canvas*/ }
   const svgWidth = 800;
-  const svgHeight = 500;
+  const svgHeight = 460;
 
   const marginTop = 40;
   const marginBottom = 20;
   const marginSide = 40;
 
   {/* 2. Grid*/ }
-
-  const labelWidth = 120;
+  const labelWidth = 140;
   const gridWidth = (svgWidth - labelWidth - (2 * marginSide)) / 2;
-
+  const gridHeight = svgHeight - marginTop - marginBottom;
+  //border lines
+  const lineTop = marginTop / 2;
+  const lineBottom = svgHeight - marginBottom;
+  //table horizontal positions
   const column = [
     marginSide,
     (marginSide + gridWidth),
     (marginSide + gridWidth + labelWidth),
-    (marginSide + 2 * gridWidth + labelWidth),];
-
-  const gridHeight = svgHeight - marginTop - marginBottom;
-
-  //calculate grid cell sizes
+    (marginSide + gridWidth + labelWidth + gridWidth),];
+  //calculate grid row height
   const gridCellY = gridHeight / (nIndependents);
-  const barHeightPercentageOfCell = 0.8;
+  //bar thickness
+  const barHeightPercentageOfCell = 0.75;
   const barHeight = barHeightPercentageOfCell * gridCellY;
   const barMargin = (1 - barHeightPercentageOfCell) / 2;
-
+  //stretch data across grid
   const _scaleX = scaleLinear().domain([0, 100]).range([0, gridWidth]);
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <svg
-        width={svgWidth}
-        height={svgHeight}
-      >
+      <svg width={svgWidth} height={svgHeight}>
         {/* background */}
-        <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorB}
-
-        />
+        <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorB} />
         {/* 3. Grid labels*/}
-        {/* TK 100% lines go here */}
-        <line
-          x1={column[0]}
-          x2={column[0]}
-          y1={marginTop / 2}
-          y2={svgHeight - marginBottom}
-          stroke={colorA}
-          strokeWidth="3"
-          stroke-dasharray="8, 6"
-          strokeLinecap="round"
-        />
-        <line
-          x1={column[3]}
-          x2={column[3]}
-          y1={marginTop / 2}
-          y2={svgHeight - marginBottom}
-          stroke={colorA}
-          strokeWidth="3"
-          stroke-dasharray="8, 6"
-          strokeLinecap="round"
-        />
-        <text y={marginTop * .75} textAnchor="middle" fontWeight="800">
+        <g strokeWidth="3" stroke-dasharray="9, 6" strokeLinecap="round" stroke={colorA}
+        >
+          <line
+            x1={column[0]} x2={column[0]}
+            y1={lineTop} y2={lineBottom}
+          />
+          <line
+            x1={column[3]} x2={column[3]}
+            y1={lineTop} y2={lineBottom}
+          />
+        </g>
+        <text y={marginTop * .4} textAnchor="middle" fill={colorA} fontWeight="800">
+          <tspan x={column[0]} font-size={15} fontFamily="Courier New">&nbsp;100%</tspan>
+          <tspan x={column[3]} font-size={15} fontFamily="Courier New" >PAR</tspan>
+        </text>
+        <text y={marginTop * .8} textAnchor="middle" fill={colorA} fontWeight="800">
           <tspan x={(column[0] + column[1]) / 2} font-size={15} fontFamily="Courier New">RATIO OF GOLD TO NOTES</tspan>
           <tspan x={(column[2] + column[3]) / 2} font-size={15} fontFamily="Courier New" >EXCHANGE IN PER CENT OF PAR</tspan>
         </text>
@@ -139,13 +129,8 @@ export default function Gold() {
           const textX = (column[1] + column[2]) / 2;
           const textY = marginTop + barMargin + (barHeight / 2) + i * gridCellY + verticalOffset;
           return (
-            <text
-              key={`bottomText--${i}`}
-              textAnchor="middle"
-              x={textX} y={textY}
-              fontWeight="800"
-            >
-              <tspan fontFamily="Courier New">{country}</tspan>
+            <text x={textX} y={textY} textAnchor="middle" fill={colorA}>
+              <tspan fontFamily="Courier New" fontSize="20" fontWeight="800">{country}</tspan>
             </text>
           );
         })}
