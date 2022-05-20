@@ -2,6 +2,7 @@ import Curve from "./components/Curve"
 import Column from "./components/Column"
 import Bar from "./components/Bar"
 import Gold from "./components/Gold"
+import Gridbridge from "./components/Gridbridge"
 
 export default function App() {
   const colors = ["red"]
@@ -9,6 +10,9 @@ export default function App() {
     <div>
       <h1>&nbsp;CHARTS!</h1>
       <p className="tagline">Analog excellence digitized for the web.<br />By RJ Andrews and friends.</p>
+
+      <div id="1881cheysson8" className="line"></div>
+      <Gridbridge />
 
       <div id="1925karsten102" className="line"></div>
       <Gold />

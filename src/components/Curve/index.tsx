@@ -78,7 +78,7 @@ export default function Curve(props: Props) {
         height={svgSize}
       // style={{ border: "1px solid pink" }}
       >
-        <mask id="gridMask">
+        <mask id="curveMask">
           <rect x={margin} y={gridTop} width={gridWidth} height={gridHeight} fill="white" />
         </mask>
 
@@ -125,7 +125,7 @@ export default function Curve(props: Props) {
             fill="none"
             strokeLinecap="round"
             d={_tonsLine}
-            mask="url(#gridMask)" // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask
+            mask="url(#curveMask)" // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask
           />
         )}
         {/* top text */}
