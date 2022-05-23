@@ -126,6 +126,7 @@ export default function Gridbridge() {
 
   const _totalLine = _lineMakerBlue(dependentsTotal);
   const _totalLineLabel = _lineMakerBlueLabel(dependentsTotal);
+  const _fastLineLabel = _lineMakerBlueLabel(dependentsFast);
 
   const _fastLine = _lineMakerBlue(dependentsFast);
   const _slowLine = _lineMakerBlue(dependentsSlow);
@@ -360,8 +361,17 @@ export default function Gridbridge() {
 
         {/* 4. Data */}
         {/* Labels on select data points. Text background color filter method from https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg */}
-        <filter x="0" y="0" width="1" height="1" id="solid">
+        <filter x="0" y="0" width="1" height="1" id="block">
           <feFlood flood-color={colorZ} result="bg" />
+          <feMerge>
+            <feMergeNode in="bg" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+
+        <filter id="outline">
+          <feDropShadow dx="0" dy="0" stdDeviation="3" flood-opacity="0.5" />
+          <feFlood flood-color={colorX} result="bg" />
           <feMerge>
             <feMergeNode in="bg" />
             <feMergeNode in="SourceGraphic" />
@@ -373,7 +383,7 @@ export default function Gridbridge() {
           const textY = 3 + _scaleYFrancs(label);
           return (
             <text
-              key={`labelText--${i}`} fontWeight={800} filter={"url(#solid)"} fill={colorB} x={textX} y={textY} textAnchor="start"
+              key={`labelText--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorB} x={textX} y={textY} textAnchor="start"
               display={
                 i === 6 || i === 14 || i === 17 || i === 20 || i === 29 || i === 32
                   ? "block" : "none"
@@ -389,7 +399,7 @@ export default function Gridbridge() {
           const textY = 3 + _scaleYFrancs(label);
           return (
             <text
-              key={`labelTextFast--${i}`} fontWeight={800} filter={"url(#solid)"} fill={colorB} x={textX} y={textY} textAnchor="start"
+              key={`labelTextFast--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorB} x={textX} y={textY} textAnchor="start"
               display={
                 i === 6 || i === 14 || i === 18 || i === 30
                   ? "block" : "none"
@@ -405,7 +415,7 @@ export default function Gridbridge() {
           const textY = 3 + _scaleYFrancs(label);
           return (
             <text
-              key={`labelTextSlow--${i}`} fontWeight={800} filter={"url(#solid)"} fill={colorB} x={textX} y={textY} textAnchor="start"
+              key={`labelTextSlow--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorB} x={textX} y={textY} textAnchor="start"
               display={
                 i === 6 || i === 20 || i === 32
                   ? "block" : "none"
@@ -422,7 +432,7 @@ export default function Gridbridge() {
           const labelComma = (label * 1000000).toLocaleString('en-US');
           return (
             <text
-              key={`labelTextPassengers--${i}`} fontWeight={800} filter={"url(#solid)"} fill={colorA} x={textX} y={textY} textAnchor="start"
+              key={`labelTextPassengers--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorA} x={textX} y={textY} textAnchor="start"
               display={
                 i === 30
                   ? "block" : "none"
@@ -439,7 +449,7 @@ export default function Gridbridge() {
           const labelComma = (label * 1000000).toLocaleString('en-US');
           return (
             <text
-              key={`labelTextTons--${i}`} fontWeight={800} filter={"url(#solid)"} fill={colorA} x={textX} y={textY} textAnchor="end"
+              key={`labelTextTons--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorA} x={textX} y={textY} textAnchor="end"
               display={
                 i === 20 || i === 28
                   ? "block" : "none"
@@ -549,14 +559,55 @@ export default function Gridbridge() {
             textAnchor="start"
             startOffset="2%"
             letterSpacing={".1em"}
+            wordSpacing={wordSpace}
             font-size={textSizeTiny}
             fill={colorB}
             fontWeight={800}
             fontStyle={"italic"}
-            wordSpacing={wordSpace}
-
+          // filter={"url(#outline)"}
           >
-            III Recettes brutes Kilométriques totales
+            III. Recettes brutes Kilométriques totales
+          </textPath>
+        </text>
+
+        {typeof _fastLineLabel === "string" && (
+          <defs>
+            <path
+              id="labelPathFast"
+              stroke={"red"}
+              strokeWidth={strokeWidth}
+              fill="none"
+              strokeLinecap="round"
+              d={_fastLineLabel}
+            />
+          </defs>
+        )}
+        <text>
+          <textPath
+            href="#labelPathFast"
+            textAnchor="start"
+            startOffset="2%"
+            letterSpacing={".1em"}
+            wordSpacing={6}
+            font-size={textSizeTiny}
+            fill={colorB}
+            fontWeight={800}
+            fontStyle={"italic"}
+          >
+            I. Recettes brutes Kilométriques
+          </textPath>
+          <textPath
+            href="#labelPathFast"
+            textAnchor="start"
+            startOffset="32%"
+            letterSpacing={".1em"}
+            wordSpacing={6}
+            font-size={textSizeTiny}
+            fill={colorB}
+            fontWeight={800}
+            fontStyle={"italic"}
+          >
+            de Grande Vitesse
           </textPath>
         </text>
 
@@ -631,7 +682,7 @@ export default function Gridbridge() {
         </text>
 
         {/* Channel titles */}
-        <text textAnchor="middle" fill={colorA} >
+        <text textAnchor="middle" fill={colorA}>
           <tspan x={marginLeft + .5 * channelSide} y={marginTop + 20} font-size={textSize} fontWeight={800}>Échelles</tspan>
           <tspan x={marginLeft + .5 * channelSide} dy={8} font-style="italic" font-size={textSizeTiny} >en milliers</tspan>
 

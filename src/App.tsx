@@ -13,6 +13,13 @@ export default function App() {
 
       <div id="1881cheysson8" className="line"></div>
       <Gridbridge />
+      <p>This line graph boasts a grid that disappears once it is no longer needed. Both vertical and horizontal gridlines extend from their origins to the farthest data mark—and no more. It was created in conversation with <a target="_blank" rel="noopener" href="https://twitter.com/tomshanleynz">Tom Shanley</a>.</p>
+      <p>Each vertical gridline begins at the chart's baseline and terminates at a data point. The logic powering the horizontal gridlines needs to accomodate two situations: (1) Terminate at the diagonal connecting two data points. (2) Bridge chasms to reach the farthest point where they are needed.</p>
+      <p>Other features include selective data-point labels, four vertical-axis scales, and multiple line styles. (The original reference chart, which included several more lines, was better suited for a large-format printed sheet than the screen you see here.)</p>
+      <p>This chart was inspired by a couplet by Émile Cheysson, "Navigation Intérieure. II. Tonnage kilométrique," in the 1881 <i>Album du statistique graphique</i>. See the original, which showed the same data with absolute and relative scales, in the David Rumsey <a target="_blank" rel="noopener" href="https://www.davidrumsey.com/luna/servlet/s/3p91t6">Map&nbsp;Collection</a>.</p>
+      <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Gridbridge/index.tsx">CHART CODE</a></p>
+
+
 
       <div id="1925karsten102" className="line"></div>
       <Gold />
