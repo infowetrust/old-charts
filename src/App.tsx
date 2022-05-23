@@ -48,7 +48,8 @@ export default function App() {
       <p>This chart was inspired by example 14 from <i>Standards for Graphic Presentation</i> (1915). Its purpose was to emphasize that it "is often desirable to include in the diagram the numerical data or formulae represented." The <i>Standards</i> were an effort by a committee of leading American engineering, scientific, government, and businessmen. They hoped their recommended standards would improve how complex information was “imparted and interpreted.” See all <a target="_blank" rel="noopener" href="https://infowetrust.com/project/1915-standards">seventeen standards</a>.</p>
       <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Curve/index.tsx">CHART CODE</a></p>
       <div className="line"></div>
-      <p className="tagline"><a href="https://infowetrust.com/">INFO WE TRUST HOMEPAGE</a></p>
+
+      <p className="tagline"><a href="https://infowetrust.com/">HOMEPAGE</a><br /><br />©2013 – 2022 Info We Trust</p>
     </div>
   );
 }
