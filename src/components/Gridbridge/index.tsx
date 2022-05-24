@@ -17,25 +17,20 @@ export default function Gridbridge() {
   */
 
   //styling
-  const colorA = "#333333";
-  const colorB = "steelBlue";
-  const colorX = "red";
-  const colorZ = "linen";
-
-  const strokeWidth = .5;
-  const strokeWidthEmphasis = 2;
+  const colorA = getComputedStyle(document.documentElement).getPropertyValue('--cheyssonBlack');
+  const colorB = getComputedStyle(document.documentElement).getPropertyValue('--cheyssonBlue');
+  const colorX = "red"; //used for troubleshooting
+  const colorZ = getComputedStyle(document.documentElement).getPropertyValue('--cheyssonPaper');
 
   const cR = 3;
 
   const verticalOffset = 3;
-
 
   const textSize = 10;
   const textSizeTiny = 8;
   const hoverGap = 15;
 
   {/* 0. Map data to dimensions */ }
-  //map data to independent and dependent dimensions
   const independents = _.map(cheysson["1881-8"], "year");
   const nIndependents = independents.length;
 
@@ -93,17 +88,16 @@ export default function Gridbridge() {
   const _scaleYDistance = scaleLinear().domain([0, topValue * 3.33]).range([gridBottom, gridTop]);
 
   //create curve
-  const _lineMakerBlue = line()
+  const _lineMakerFrancs = line()
     .x((d, i) => {
       return _scaleX(i);
     })
     .y((d) => {
       // @ts-ignore
       return _scaleYFrancs(d);
-
     });
 
-  const _lineMakerBlueLabel = line()
+  const _lineMakerFrancsLabel = line()
     .x((d, i) => {
       return _scaleX(i);
     })
@@ -123,15 +117,31 @@ export default function Gridbridge() {
 
     });
 
-  const _totalLine = _lineMakerBlue(dependentsTotal);
-  const _totalLineLabel = _lineMakerBlueLabel(dependentsTotal);
-  const _fastLineLabel = _lineMakerBlueLabel(dependentsFast);
-  const _slowLineLabel = _lineMakerBlueLabel(dependentsSlow);
+  const _lineMakerDistanceLabel = line()
+    .x((d, i) => {
+      return _scaleX(i);
+    })
+    .y((d) => {
+      // @ts-ignore
+      return _scaleYDistance(d) - hoverGap;
 
-  const _fastLine = _lineMakerBlue(dependentsFast);
-  const _slowLine = _lineMakerBlue(dependentsSlow);
+    });
+
+  const _totalLine = _lineMakerFrancs(dependentsTotal);
+  const _totalLineLabel = _lineMakerFrancsLabel(dependentsTotal);
+
+  const _fastLine = _lineMakerFrancs(dependentsFast);
+  const _fastLineLabel = _lineMakerFrancsLabel(dependentsFast);
+
+  const _slowLine = _lineMakerFrancs(dependentsSlow);
+  const _slowLineLabel = _lineMakerFrancsLabel(dependentsSlow);
+
   const _passengersLine = _lineMakerDistance(dependentsPassengers);
+  const _passengersLineLabel = _lineMakerDistanceLabel(dependentsPassengers);
+
   const _tonsLine = _lineMakerDistance(dependentsTons);
+  const _tonsLineLabel = _lineMakerDistanceLabel(dependentsTons);
+
 
   // draw chart
   return (
@@ -139,27 +149,21 @@ export default function Gridbridge() {
       <svg width={svgWidth} height={svgHeight}>
         {/* background */}
         <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorZ} />
-
         {/* 2. Grid */}
-
         {/* vertical gridlines */}
-
-
         {dependentsTotal.map((total, i) => {
           return (
             <line
               key={`vertical-gridline-${i}`}
+              className={"gridBridgeLine"}
               x1={gridLeft + i * gridCellX}
               x2={gridLeft + i * gridCellX}
               y1={gridBottom}
               y2={_scaleYFrancs(total)}
-              stroke={colorA}
-              strokeWidth={strokeWidth}
             />
           );
         })}
         {/* horizontal gridlines */}
-
         <clipPath id="polygonMask">
           {dependentsTotal.map((total, i) => {
             const iX = gridLeft + i * gridCellX;
@@ -184,17 +188,15 @@ export default function Gridbridge() {
             );
           })}
         </clipPath>
-
         {ticksFrancs.map((dependentsTotal, i) => {
           return (
             <line
               key={`horizontal-gridline-blue${i}`}
+              className={"gridBridgeLine"}
               x1={gridLeft}
               x2={gridRight}
               y1={gridBottom - i * gridCellFrancs}
               y2={gridBottom - i * gridCellFrancs}
-              stroke={colorA}
-              strokeWidth={strokeWidth}
               clipPath="url(#polygonMask)"
             />
           );
@@ -203,20 +205,14 @@ export default function Gridbridge() {
         {/* 3. Grid labels*/}
         {/* 1st vertical axis labels */}
         {ticksFrancs.map((tick, i) => {
-          const horizontalOffset = .75 * channelSide; // hardcoded
-          const textOffsetX = gridLeft - horizontalOffset;
-          const textOffsetY = gridBottom - i * gridCellFrancs + verticalOffset;
-
           return (
             <text
+              className={"gridBridgeBlue gridBridgeAxis"}
               key={`blueText--${i}`}
-              fontWeight={800}
-              fill={colorB}
-              textAnchor="middle"
-              x={textOffsetX}
-              y={textOffsetY}
+              x={gridLeft - .75 * channelSide}
+              y={gridBottom - i * gridCellFrancs + verticalOffset}
             >
-              <tspan letterSpacing={-.4} font-size={textSize}>{tick}</tspan>
+              <tspan letterSpacing={-.4} >{tick}</tspan>
             </text>
           );
         })}
@@ -225,121 +221,94 @@ export default function Gridbridge() {
           return (
             <line
               key={`horizontal-gridline-dash-left${i}`}
+              className={"gridBridgeLine"}
               x1={gridLeft - .6 * channelSide}
               x2={gridLeft}
               y1={gridBottom - i * gridCellFrancs}
               y2={gridBottom - i * gridCellFrancs}
-              stroke={colorA}
               stroke-dasharray="2, 2"
-              strokeWidth={strokeWidth}
             />
           );
         })}
 
         <line
           key={`vertical-centerline-black`}
+          className={"gridBridgeLine"}
           x1={gridLeft - .5 * channelSide}
           x2={gridLeft - .5 * channelSide}
           y1={gridBottom}
           y2={gridTop + 35}
-          stroke={colorA}
-          strokeWidth={strokeWidth}
         />
-
+        {/* left side vertical line */}
+        <line
+          key={`vertical-centerline-black`}
+          className={"gridBridgeLine"}
+          x1={gridLeft - .5 * channelSide}
+          x2={gridLeft - .5 * channelSide}
+          y1={gridBottom}
+          y2={gridTop + 35}
+        />
         {/* 2nd vertical tick labels */}
         {ticksLength.map((tick, i) => {
-          const horizontalOffset = .25 * channelSide; // hardcoded
-          const textOffsetX = gridLeft - horizontalOffset;
-          const textOffsetY = gridBottom - i * gridCellLength + verticalOffset;
-
           return (
             <text
               key={`blackText--${i}`}
-              fontWeight={800}
-              fill={colorA}
-              x={textOffsetX}
-              y={textOffsetY}
-              textAnchor="middle"
+              className={"gridBridgeBlack gridBridgeAxis"}
+              x={gridLeft - .25 * channelSide}
+              y={gridBottom - i * gridCellLength + verticalOffset}
             >
-              <tspan letterSpacing={-.4} font-size={textSize}>{tick}</tspan>
+              <tspan letterSpacing={-.4} >{tick}</tspan>
             </text>
           );
         })}
         {/* 3rd vertical tick labels */}
         {ticksDistance.map((tick, i) => {
-          const horizontalOffset = .25 * channelSide; // hardcoded
-          const textOffsetX = gridRight + horizontalOffset;
-          const textOffsetY = gridBottom - i * gridCellDistance + verticalOffset;
-
           return (
             <text
               key={`blackText2--${i}`}
-              fontWeight={800}
-              fill={colorA}
-              x={textOffsetX}
-              y={textOffsetY}
-              textAnchor="middle"
+              className={"gridBridgeBlack gridBridgeAxis"}
+              x={gridRight + .25 * channelSide}
+              y={gridBottom - i * gridCellDistance + verticalOffset}
             >
-              <tspan letterSpacing={-.4} font-size={textSize}>{tick}</tspan>
+              <tspan letterSpacing={-.4} >{tick}</tspan>
             </text>
           );
         })}
-
+        {/* right side vertical line */}
         <line
           key={`vertical-centerline-black-right`}
+          className={"gridBridgeLine"}
           x1={gridRight + .5 * channelSide}
           x2={gridRight + .5 * channelSide}
           y1={gridBottom}
           y2={gridTop + 35}
-          stroke={colorA}
-          strokeWidth={strokeWidth}
         />
-
         {/* 4th vertical axis labels */}
         {ticksPerKm.map((tick, i) => {
-          const horizontalOffset = .75 * channelSide; // hardcoded
-          const textOffsetX = gridRight + horizontalOffset;
-          const textOffsetY = gridBottom - i * gridCellFrancs + verticalOffset;
-
           return (
             <text
               key={`PerKmText--${i}`}
-              fontWeight={800}
-              fill={colorA}
-              textAnchor="middle"
-              x={textOffsetX}
-              y={textOffsetY}
+              className={"gridBridgeBlack gridBridgeAxis"}
+              x={gridRight + .75 * channelSide}
+              y={gridBottom - i * gridCellFrancs + verticalOffset}
             >
-              <tspan letterSpacing={-.4} font-size={textSize}>{tick}</tspan>
+              <tspan letterSpacing={-.4} >{tick}</tspan>
             </text>
           );
         })}
-
         {ticksPerKmLines.map((dependents, i) => {
           return (
             <line
               key={`horizontal-gridline-dash-right${i}`}
+              className={"gridBridgeLine"}
               x1={gridRight}
               x2={gridRight + .65 * channelSide}
               y1={gridBottom - i * gridCellFrancs}
               y2={gridBottom - i * gridCellFrancs}
-              stroke={colorA}
               stroke-dasharray="2, 2"
-              strokeWidth={strokeWidth}
             />
           );
         })}
-
-        <line
-          key={`vertical-centerline-black`}
-          x1={gridLeft - .5 * channelSide}
-          x2={gridLeft - .5 * channelSide}
-          y1={gridBottom}
-          y2={gridTop + 35}
-          stroke={colorA}
-          strokeWidth={strokeWidth}
-        />
-
         {/* horizontal axis labels */}
         {independentsLabel.map((year, i) => {
           const textX = gridLeft + i * gridCellX;
@@ -348,11 +317,9 @@ export default function Gridbridge() {
           return (
             <text
               key={`blueText--${i}`}
-              fontWeight={800}
-              fill={colorA}
-              textAnchor="middle"
-              x={textX}
-              y={textY}
+              className={"gridBridgeBlack gridBridgeAxis"}
+              x={gridLeft + i * gridCellX}
+              y={gridBottom + 10}
             >
               <tspan letterSpacing={-.4} font-size={textSizeTiny}>{year}</tspan>
             </text>
@@ -383,7 +350,11 @@ export default function Gridbridge() {
           const textY = 3 + _scaleYFrancs(label);
           return (
             <text
-              key={`labelText--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorB} x={textX} y={textY} textAnchor="start"
+              key={`labelTextTotal--${i}`} className={"gridBridgeBlue"}
+              x={textX} y={textY}
+              fontWeight={800}
+              textAnchor="start"
+              filter={"url(#block)"}
               display={
                 i === 6 || i === 14 || i === 17 || i === 20 || i === 29 || i === 32
                   ? "block" : "none"
@@ -399,7 +370,9 @@ export default function Gridbridge() {
           const textY = 3 + _scaleYFrancs(label);
           return (
             <text
-              key={`labelTextFast--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorB} x={textX} y={textY} textAnchor="start"
+              key={`labelTextFast--${i}`} className={"gridBridgeBlue"}
+              fontWeight={800} filter={"url(#block)"}
+              x={textX} y={textY} textAnchor="start"
               display={
                 i === 6 || i === 14 || i === 18 || i === 30
                   ? "block" : "none"
@@ -415,7 +388,9 @@ export default function Gridbridge() {
           const textY = 3 + _scaleYFrancs(label);
           return (
             <text
-              key={`labelTextSlow--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorB} x={textX} y={textY} textAnchor="start"
+              key={`labelTextSlow--${i}`} className={"gridBridgeBlue"}
+              fontWeight={800} filter={"url(#block)"}
+              x={textX} y={textY} textAnchor="start"
               display={
                 i === 6 || i === 20 || i === 32
                   ? "block" : "none"
@@ -432,7 +407,8 @@ export default function Gridbridge() {
           const labelComma = (label * 1000000).toLocaleString('en-US');
           return (
             <text
-              key={`labelTextPassengers--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorA} x={textX} y={textY} textAnchor="start"
+              key={`labelTextPassengers--${i}`} fontWeight={800} filter={"url(#block)"}
+              className={"gridBridgeBlack"} x={textX} y={textY} textAnchor="start"
               display={
                 i === 30
                   ? "block" : "none"
@@ -449,7 +425,8 @@ export default function Gridbridge() {
           const labelComma = (label * 1000000).toLocaleString('en-US');
           return (
             <text
-              key={`labelTextTons--${i}`} fontWeight={800} filter={"url(#block)"} fill={colorA} x={textX} y={textY} textAnchor="end"
+              key={`labelTextTons--${i}`} className={"gridBridgeBlack"}
+              fontWeight={800} filter={"url(#block)"} x={textX} y={textY} textAnchor="end"
               display={
                 i === 20 || i === 28
                   ? "block" : "none"
@@ -462,12 +439,13 @@ export default function Gridbridge() {
         })}
         {/* Hollow dots on select data points */}
         {dependentsTotal.map((circle, i) => {
-          const circleX = gridLeft + i * gridCellX;
-          const circleY = _scaleYFrancs(circle);
           return (
             <circle
               key={`labelTextTotal--${i}`}
-              fill="none" r={cR} strokeWidth={strokeWidthEmphasis} stroke={colorB} cx={circleX} cy={circleY}
+              className={"gridBridgeCurve"}
+              r={cR} stroke={colorB}
+              cx={gridLeft + i * gridCellX}
+              cy={_scaleYFrancs(circle)}
               display={
                 i === 6 || i === 14 || i === 17 || i === 20 || i === 29 || i === 32
                   ? "block" : "none"}
@@ -475,12 +453,13 @@ export default function Gridbridge() {
           );
         })}
         {dependentsFast.map((circle, i) => {
-          const circleX = gridLeft + i * gridCellX;
-          const circleY = _scaleYFrancs(circle);
           return (
             <circle
               key={`labelTextFast--${i}`}
-              fill="none" r={cR} strokeWidth={strokeWidthEmphasis} stroke={colorB} cx={circleX} cy={circleY}
+              className={"gridBridgeCurve"}
+              r={cR} stroke={colorB}
+              cx={gridLeft + i * gridCellX}
+              cy={_scaleYFrancs(circle)}
               display={
                 i === 6 || i === 14 || i === 18 || i === 30
                   ? "block" : "none"}
@@ -488,12 +467,14 @@ export default function Gridbridge() {
           );
         })}
         {dependentsSlow.map((circle, i) => {
-          const circleX = gridLeft + i * gridCellX;
-          const circleY = _scaleYFrancs(circle);
           return (
             <circle
               key={`labelTextSlow--${i}`}
-              fill="none" r={cR} strokeWidth={strokeWidthEmphasis} stroke={colorB} cx={circleX} cy={circleY}
+              className={"gridBridgeCurve"}
+              r={cR}
+              cx={gridLeft + i * gridCellX}
+              cy={_scaleYFrancs(circle)}
+              stroke={colorB}
               display={
                 i === 6 || i === 20 || i === 32
                   ? "block" : "none"}
@@ -501,12 +482,15 @@ export default function Gridbridge() {
           );
         })}
         {dependentsPassengers.map((circle, i) => {
-          const circleX = gridLeft + i * gridCellX;
-          const circleY = _scaleYDistance(circle);
+
           return (
             <circle
               key={`labelTextPassengers--${i}`}
-              fill="none" r={cR} strokeWidth={strokeWidthEmphasis} stroke={colorA} cx={circleX} cy={circleY}
+              className={"gridBridgeCurve"}
+              r={cR}
+              cx={gridLeft + i * gridCellX}
+              cy={_scaleYDistance(circle)}
+              stroke={colorA}
               display={
                 i === 30
                   ? "block" : "none"}
@@ -515,12 +499,14 @@ export default function Gridbridge() {
         })}
 
         {dependentsTons.map((circle, i) => {
-          const circleX = gridLeft + i * gridCellX;
-          const circleY = _scaleYDistance(circle);
           return (
             <circle
               key={`labelTextTons--${i}`}
-              fill="none" r={cR} strokeWidth={strokeWidthEmphasis} stroke={colorA} cx={circleX} cy={circleY}
+              className={"gridBridgeCurve"}
+              r={cR}
+              cx={gridLeft + i * gridCellX}
+              cy={_scaleYDistance(circle)}
+              stroke={colorA}
               display={
                 i === 20 || i === 28
                   ? "block" : "none"}
@@ -528,188 +514,168 @@ export default function Gridbridge() {
           );
         })}
 
-        {/* data curves */}
+        {/* data curve labels */}
         {typeof _totalLineLabel === "string" && (
           <defs>
             <path
               id="labelPathTotal"
-              stroke={"red"}
-              strokeWidth={strokeWidth}
-              fill="none"
-              strokeLinecap="round"
               d={_totalLineLabel}
             />
           </defs>
         )}
-
         <text >
           <textPath
-            className={"gridBridgeFlow"}
+            className={"gridBridgePath gridBridgeBlue"}
             href="#labelPathTotal"
             startOffset="2%" wordSpacing={8}
-            fill={colorB}
           >
             III. Recettes brutes Kilométriques totales
           </textPath>
         </text>
-
-        {typeof _totalLine === "string" && (
-          <path
-            key={`total-line`}
-            stroke={colorB}
-            strokeWidth={strokeWidthEmphasis}
-            fill="none"
-            stroke-linejoin="round"
-            d={_totalLine}
-          />
-        )}
-
         {typeof _fastLineLabel === "string" && (
           <defs>
             <path
               id="labelPathFast"
-              stroke={"red"}
-              strokeWidth={strokeWidth}
-              fill="none"
-              strokeLinecap="round"
               d={_fastLineLabel}
             />
           </defs>
         )}
         <text>
           <textPath
+            className={"gridBridgePath gridBridgeBlue"}
             href="#labelPathFast"
-            textAnchor="start"
-            startOffset="2%"
-            letterSpacing={".1em"}
-            wordSpacing={6}
-            font-size={textSizeTiny}
-            fill={colorB}
-            fontWeight={800}
-            fontStyle={"italic"}
+            startOffset="2%" wordSpacing={6}
           >
             I. Recettes brutes Kilométriques
           </textPath>
           <textPath
+            className={"gridBridgePath gridBridgeBlue"}
             href="#labelPathFast"
-            textAnchor="start"
-            startOffset="32%"
-            letterSpacing={".1em"}
-            wordSpacing={6}
-            font-size={textSizeTiny}
-            fill={colorB}
-            fontWeight={800}
-            fontStyle={"italic"}
+            startOffset="32%" letterSpacing={".1em"}
           >
             de Grande Vitesse
           </textPath>
         </text>
-
-        {typeof _fastLine === "string" && (
-          <path
-            key={`fast-line`}
-            stroke={colorB}
-            strokeWidth={strokeWidthEmphasis}
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d={_fastLine}
-            stroke-dasharray="9,6,2,6"
-          />
-        )}
-
         {typeof _slowLineLabel === "string" && (
           <defs>
             <path
               id="labelPathSlow"
-              stroke={"red"}
-              strokeWidth={strokeWidth}
-              fill="none"
-              strokeLinecap="round"
               d={_slowLineLabel}
             />
           </defs>
         )}
         <text>
           <textPath
+            className={"gridBridgePath gridBridgeBlue"}
             href="#labelPathSlow"
-            textAnchor="start"
-            startOffset="27%"
-            letterSpacing={".1em"}
-            wordSpacing={4}
-            font-size={textSizeTiny}
-            fill={colorB}
-            fontWeight={800}
-            fontStyle={"italic"}
+            startOffset="27%" letterSpacing={".1em"}
           >
             II. Recettes brutes Kilométriques
           </textPath>
           <textPath
+            className={"gridBridgePath gridBridgeBlue"}
             href="#labelPathSlow"
-            textAnchor="start"
-            startOffset="51%"
-            letterSpacing={".1em"}
-            wordSpacing={2}
-            font-size={textSizeTiny}
-            fill={colorB}
-            fontWeight={800}
-            fontStyle={"italic"}
+            startOffset="51%" wordSpacing={2}
           >
             de petite vitesse
           </textPath>
         </text>
-
+        {typeof _passengersLineLabel === "string" && (
+          <defs>
+            <path
+              id="labelPathPassengers"
+              d={_passengersLineLabel}
+            />
+          </defs>
+        )}
+        <text >
+          <textPath
+            className={"gridBridgePath gridBridgeBlack"}
+            href="#labelPathPassengers"
+            startOffset="10%" wordSpacing={12}
+          >
+            VII. Nombre de voyageurs à toute distance
+          </textPath>
+        </text>
+        {typeof _tonsLineLabel === "string" && (
+          <defs>
+            <path
+              id="labelPathTons"
+              d={_tonsLineLabel}
+            />
+          </defs>
+        )}
+        <text >
+          <textPath
+            className={"gridBridgePath gridBridgeBlack"}
+            href="#labelPathTons"
+            startOffset="15%" wordSpacing={12}
+          >
+            VIII. Nombre de tons à
+          </textPath>
+          <textPath
+            className={"gridBridgePath gridBridgeBlack"}
+            href="#labelPathTons"
+            startOffset="47%" wordSpacing={8}
+          >
+            toute distance
+          </textPath>
+        </text>
+        {/* data curves */}
+        {typeof _totalLine === "string" && (
+          <path
+            key={`total-line`}
+            className={"gridBridgeCurve"}
+            stroke={colorB}
+            d={_totalLine}
+          />
+        )}
+        {typeof _fastLine === "string" && (
+          <path
+            key={`fast-line`}
+            className={"gridBridgeCurve"}
+            stroke={colorB}
+            d={_fastLine}
+            stroke-dasharray="9,6,2,6"
+          />
+        )}
         {typeof _slowLine === "string" && (
           <path
             key={`slow-line`}
+            className={"gridBridgeCurve"}
             stroke={colorB}
-            strokeWidth={strokeWidthEmphasis}
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
             d={_slowLine}
             stroke-dasharray="2,3"
           />
         )}
-
         {typeof _passengersLine === "string" && (
           <path
             key={`passengers-line`}
+            className={"gridBridgeCurve"}
             stroke={colorA}
-            strokeWidth={strokeWidthEmphasis}
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
             d={_passengersLine}
             stroke-dasharray="6,4"
           />
         )}
-
         {typeof _tonsLine === "string" && (
           <path
             key={`tons-line`}
             stroke={colorA}
-            strokeWidth={strokeWidthEmphasis}
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            className={"gridBridgeCurve"}
             d={_tonsLine}
           />
         )}
-
         {/* borders */}
         <rect
+          className={"gridBridgeBorder"}
           x={marginLeft} y={gridTop}
           width={gridWidth + 2 * channelSide} height={gridHeight}
-          fill="none"
-          stroke={colorA}
-          strokeWidth={strokeWidthEmphasis} />
+        />
         <rect
+          className={"gridBridgeBorder"}
           x={gridLeft} y={gridTop}
           width={gridWidth} height={gridHeight}
-          fill="none"
-          stroke={colorA}
-          strokeWidth={strokeWidthEmphasis} />
+        />
 
         {/* Main chart title */}
         <text textAnchor="middle" fill={colorA} x={gridLeft + (gridWidth / 2)} y={.8 * marginTop}>
@@ -717,65 +683,52 @@ export default function Gridbridge() {
         </text>
 
         {/* Channel titles */}
-        <text textAnchor="middle" fill={colorA}>
-          <tspan x={marginLeft + .5 * channelSide} y={marginTop + 20} font-size={textSize} fontWeight={800}>Échelles</tspan>
-          <tspan x={marginLeft + .5 * channelSide} dy={8} font-style="italic" font-size={textSizeTiny} >en milliers</tspan>
+        <text className={"gridBridgeAxis"}>
+          <tspan x={marginLeft + .5 * channelSide} y={marginTop + 20} >Échelles</tspan>
 
-          <tspan x={marginLeft + .25 * channelSide} y={marginTop + 55} font-size={textSize} fontWeight={800}>F</tspan>
-          <tspan x={marginLeft + .75 * channelSide} y={marginTop + 55} font-size={textSize} fontWeight={800}>km</tspan>
+          <tspan x={marginLeft + .25 * channelSide} y={marginTop + 55} >F</tspan>
+          <tspan x={marginLeft + .75 * channelSide} y={marginTop + 55} >km</tspan>
 
-          <tspan x={gridRight + .5 * channelSide} y={marginTop + 12} font-size={textSize} fill={colorA} fontWeight={800}>Échelles des</tspan>
-          <tspan x={gridRight + .5 * channelSide} dy={8} font-size={textSize} fill={colorA} fontWeight={800}>tonnes et des</tspan>
-          <tspan x={gridRight + .5 * channelSide} dy={8} font-size={textSize} fill={colorA} fontWeight={800}>voyageurs</tspan>
+          <tspan x={gridRight + .5 * channelSide} y={marginTop + 12} >Échelles des</tspan>
+          <tspan x={gridRight + .5 * channelSide} dy={8} >tonnes et des</tspan>
+          <tspan x={gridRight + .5 * channelSide} dy={8} >voyageurs</tspan>
         </text>
+        {/* Channel subtitles */}
+        <text className={"gridBridgeSubtitle"}>
+          <tspan x={marginLeft + .5 * channelSide} y={marginTop + 28}>en milliers</tspan>
 
-        {/* Right channel subtitles */}
+          <tspan x={gridRight + .25 * channelSide} y={marginTop + 40}>à toute</tspan>
+          <tspan x={gridRight + .25 * channelSide} dy={8} >distance</tspan>
+          <tspan x={gridRight + .25 * channelSide} dy={8} >(millions)</tspan>
 
-        <text textAnchor="middle" fill={colorA} font-style="italic" >
-          <tspan x={gridRight + .25 * channelSide} y={marginTop + 40} font-size={textSizeTiny}>à toute</tspan>
-          <tspan x={gridRight + .25 * channelSide} dy={8} font-size={textSizeTiny}>distance</tspan>
-          <tspan x={gridRight + .25 * channelSide} dy={8} font-size={textSizeTiny}>(millions)</tspan>
-
-          <tspan x={gridRight + .75 * channelSide} y={marginTop + 40} font-size={textSizeTiny}>Kilomé-</tspan>
-          <tspan x={gridRight + .75 * channelSide} dy={8} font-size={textSizeTiny}>triques</tspan>
-          <tspan x={gridRight + .75 * channelSide} dy={8} font-size={textSizeTiny}> (milliards)</tspan>
+          <tspan x={gridRight + .75 * channelSide} y={marginTop + 40}>Kilomé-</tspan>
+          <tspan x={gridRight + .75 * channelSide} dy={8}>triques</tspan>
+          <tspan x={gridRight + .75 * channelSide} dy={8}> (milliards)</tspan>
         </text>
 
         <line
+          className={"gridBridgeLine"}
           x1={marginLeft + .1 * channelSide}
           x2={marginLeft + .4 * channelSide}
-          y1={underline}
-          y2={underline}
-          stroke={colorA}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
+          y1={underline} y2={underline}
         />
         <line
+          className={"gridBridgeLine"}
           x1={marginLeft + .6 * channelSide}
           x2={marginLeft + .9 * channelSide}
-          y1={underline}
-          y2={underline}
-          stroke={colorA}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
+          y1={underline} y2={underline}
         />
         <line
+          className={"gridBridgeLine"}
           x1={gridRight + .1 * channelSide}
           x2={gridRight + .4 * channelSide}
-          y1={underline}
-          y2={underline}
-          stroke={colorA}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
+          y1={underline} y2={underline}
         />
         <line
+          className={"gridBridgeLine"}
           x1={gridRight + .6 * channelSide}
           x2={gridRight + .9 * channelSide}
-          y1={underline}
-          y2={underline}
-          stroke={colorA}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
+          y1={underline} y2={underline}
         />
 
       </svg>
