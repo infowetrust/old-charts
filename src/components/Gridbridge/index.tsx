@@ -32,7 +32,6 @@ export default function Gridbridge() {
 
   const textSize = 10;
   const textSizeTiny = 8;
-  const wordSpace = 8;
   const hoverGap = 15;
 
   {/* 0. Map data to dimensions */ }
@@ -127,6 +126,7 @@ export default function Gridbridge() {
   const _totalLine = _lineMakerBlue(dependentsTotal);
   const _totalLineLabel = _lineMakerBlueLabel(dependentsTotal);
   const _fastLineLabel = _lineMakerBlueLabel(dependentsFast);
+  const _slowLineLabel = _lineMakerBlueLabel(dependentsSlow);
 
   const _fastLine = _lineMakerBlue(dependentsFast);
   const _slowLine = _lineMakerBlue(dependentsSlow);
@@ -369,7 +369,7 @@ export default function Gridbridge() {
           </feMerge>
         </filter>
 
-        <filter id="outline">
+        <filter >
           <feDropShadow dx="0" dy="0" stdDeviation="3" flood-opacity="0.5" />
           <feFlood flood-color={colorX} result="bg" />
           <feMerge>
@@ -529,17 +529,6 @@ export default function Gridbridge() {
         })}
 
         {/* data curves */}
-        {typeof _totalLine === "string" && (
-          <path
-            key={`total-line`}
-            stroke={colorB}
-            strokeWidth={strokeWidthEmphasis}
-            fill="none"
-            stroke-linejoin="round"
-            d={_totalLine}
-          />
-        )}
-
         {typeof _totalLineLabel === "string" && (
           <defs>
             <path
@@ -553,22 +542,27 @@ export default function Gridbridge() {
           </defs>
         )}
 
-        <text>
+        <text >
           <textPath
+            className={"gridBridgeFlow"}
             href="#labelPathTotal"
-            textAnchor="start"
-            startOffset="2%"
-            letterSpacing={".1em"}
-            wordSpacing={wordSpace}
-            font-size={textSizeTiny}
+            startOffset="2%" wordSpacing={8}
             fill={colorB}
-            fontWeight={800}
-            fontStyle={"italic"}
-          // filter={"url(#outline)"}
           >
             III. Recettes brutes Kilométriques totales
           </textPath>
         </text>
+
+        {typeof _totalLine === "string" && (
+          <path
+            key={`total-line`}
+            stroke={colorB}
+            strokeWidth={strokeWidthEmphasis}
+            fill="none"
+            stroke-linejoin="round"
+            d={_totalLine}
+          />
+        )}
 
         {typeof _fastLineLabel === "string" && (
           <defs>
@@ -623,6 +617,47 @@ export default function Gridbridge() {
             stroke-dasharray="9,6,2,6"
           />
         )}
+
+        {typeof _slowLineLabel === "string" && (
+          <defs>
+            <path
+              id="labelPathSlow"
+              stroke={"red"}
+              strokeWidth={strokeWidth}
+              fill="none"
+              strokeLinecap="round"
+              d={_slowLineLabel}
+            />
+          </defs>
+        )}
+        <text>
+          <textPath
+            href="#labelPathSlow"
+            textAnchor="start"
+            startOffset="27%"
+            letterSpacing={".1em"}
+            wordSpacing={4}
+            font-size={textSizeTiny}
+            fill={colorB}
+            fontWeight={800}
+            fontStyle={"italic"}
+          >
+            II. Recettes brutes Kilométriques
+          </textPath>
+          <textPath
+            href="#labelPathSlow"
+            textAnchor="start"
+            startOffset="51%"
+            letterSpacing={".1em"}
+            wordSpacing={2}
+            font-size={textSizeTiny}
+            fill={colorB}
+            fontWeight={800}
+            fontStyle={"italic"}
+          >
+            de petite vitesse
+          </textPath>
+        </text>
 
         {typeof _slowLine === "string" && (
           <path
