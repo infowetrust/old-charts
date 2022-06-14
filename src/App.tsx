@@ -3,6 +3,7 @@ import Column from "./components/Column"
 import Bar from "./components/Bar"
 import Gold from "./components/Gold"
 import Gridbridge from "./components/Gridbridge"
+import Stackpop from "./components/Stackpop"
 
 export default function App() {
   const colors = ["red"]
@@ -10,6 +11,9 @@ export default function App() {
     <div>
       <h1>&nbsp;CHARTS!</h1>
       <p className="tagline">Analog excellence digitized for the web.<br />By RJ Andrews and friends.</p>
+
+      {/* <div id="1967paris211" className="line"></div>
+      <Stackpop /> */}
 
       <div id="1881cheysson8" className="line"></div>
       <Gridbridge />
