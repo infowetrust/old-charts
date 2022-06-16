@@ -41,7 +41,31 @@ h1 {
   text-align: center;
   margin-left: auto;
 margin-right: auto;
-  color: black;
+/* position:fixed;
+  mix-blend-mode: multiply; */
+}
+
+.blue {
+  color: blue;
+  transform: translate(0px,-1px);
+}
+
+.red {
+  color: red;
+  transform: translate(1px,1px);
+}
+
+.yellow {
+  color: yellow;
+  transform: translate(-1px,1px);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  /* margin: 0;
+  padding: 0; */
+  
 }
 
 .line {
@@ -125,6 +149,19 @@ margin-right: auto;
   stroke-linejoin: round;
   stroke-linecap: round;
   fill: none;
+}
+
+.stackpopTitle {
+  font-weight: 800;
+  text-anchor: middle;
+  font-size: 14px;
+  fill: var(--cheyssonBlack);
+}
+
+.stackpopText {
+  font-weight: 400;
+  font-size: 14px;
+  fill: var(--cheyssonBlack);
 }
 
 svg,

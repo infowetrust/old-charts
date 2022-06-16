@@ -21,10 +21,7 @@ export default function Stackpop() {
   const colorX = "red"; //used for troubleshooting
   const colorZ = "ivory";
 
-  const verticalOffset = 3;
-
-  const textSize = 10;
-  const narrow = .8;
+  const narrow = .75;
 
   {/* 0. Map data to dimensions */ }
   const independents = _.map(atlasDeParis["211"], "year");
@@ -33,20 +30,19 @@ export default function Stackpop() {
   const dependentsParis = _.map(atlasDeParis["211"], "Paris");
   const dependentsReste = _.map(atlasDeParis["211"], "reste");
 
-  const ticksFrancs = [0, 50, 100];
+  const ticksPop = [0, 25, 50, 75, 100];
 
-  {/* 1. Canvas*/ }
-  const svgWidth = 800;
-  const svgHeight = 500;
+  {/* 1. Canvas and grid*/ }
+  const gridWidth = 700;
+  const gridHeight = gridWidth * .55;
 
-  const marginTop = 50;
+  const marginTop = 150;
   const marginBottom = 50;
-  const marginLeft = 50;
+  const marginLeft = 80;
   const marginRight = marginLeft;
 
-  {/* 2. Grid*/ }
-  const gridWidth = svgWidth - marginLeft - marginRight;
-  const gridHeight = svgHeight - marginTop - marginBottom;
+  const svgWidth = gridWidth + marginLeft + marginRight;
+  const svgHeight = gridHeight + marginTop + marginBottom;
 
   const gridTop = marginTop;
   const gridBottom = marginTop + gridHeight;
@@ -68,28 +64,89 @@ export default function Stackpop() {
         <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorZ} />
 
         {/* horizontal axis labels */}
+        {independents.map((year, i) => {
+          const textX = gridLeft + i * gridCellX;
+          const textY = gridBottom + 15;
 
-        {/* 4. Data */}
+          return (
+            <text
+              className={"stackpopText"}
+              key={`year--${i}`}
+              x={gridLeft + i * gridCellX + .5 * narrow * gridCellX}
+              y={gridBottom + 16}
+              textAnchor="middle"
+            >
+              <tspan>{year}</tspan>
+            </text>
+          );
+        })}
+        {/* vertical axis labels */}
+        {ticksPop.map((tick, i) => {
+          return (
+            <text
+              className={"stackpopText"}
+              key={`text--${i}`}
+              x={gridLeft - 10}
+              y={_scaleY(tick) + 5}
+              textAnchor="end"
+            >
+              <tspan >{tick}</tspan>
+            </text>
+
+          );
+        })}
+
+        {ticksPop.map((tick, i) => {
+          return (
+            <line
+              key={`tick--${i}`}
+              x1={gridLeft - 6}
+              x2={gridLeft}
+              y1={_scaleY(tick)}
+              y2={_scaleY(tick)}
+              stroke={colorA}
+              strokeWidth={2}
+              stroke-linecap={"round"}
+            >
+            </line>
+          );
+        })}
+
+        {/* 4. Data marks*/}
         {dependentsReste.map((bar, i) => {
           const left = gridLeft + i * gridCellX;
           const top = _scaleY(100);
           const height = gridBottom - top;
           return (
-            <rect
-              x={left}
-              y={top}
-              width={gridCellX * narrow}
-              height={height}
-              stroke={colorA}
-              strokeWidth="2"
-              fill="none"
-            >
-              {bar}
-            </rect>
+            <g>
+              <rect
+                x={left}
+                y={top}
+                width={gridCellX * narrow}
+                height={height}
+                stroke={colorA}
+                strokeWidth="2"
+                fill="none"
+              >
+                {bar}
+              </rect>
+              <rect
+                x={left}
+                y={top}
+                rx="3" ry="3"
+                width={gridCellX * narrow}
+                height={height}
+                stroke={colorA}
+                strokeWidth="2"
+                fill="none"
+              >
+                {bar}
+              </rect>
+            </g>
           );
         })}
 
-        <PatternCircles id="circles" height={8} width={8} stroke={'colorA'} strokeWidth={1} complement />
+        <PatternCircles id="circles" height={8} width={8} fill={colorA} stroke={"none"} strokeWidth={1} complement />
 
         {dependentsReste.map((bar, i) => {
           const left = gridLeft + i * gridCellX;
@@ -122,12 +179,31 @@ export default function Stackpop() {
               height={height}
               stroke={colorA}
               strokeWidth="1"
-            // fill="url('#lines')"
+              fill={colorA}
             >
               {bar}
             </rect>
           );
         })}
+        {/* Title and legend*/}
+        <text className={"stackpopTitle"}>
+          <tspan x={gridLeft + (gridWidth / 2)} y={34} >PART RELATIVE DE LA POPULATION DE PARIS</tspan>
+          <tspan x={gridLeft + (gridWidth / 2)} dy={16}>DANS LE DÉPARTMENTS DE LA SEINE ET LA RÉGION</tspan>
+          <tspan x={gridLeft + (gridWidth / 2)} dy={16}>A DIFFÉRENTES DATES ENTRE 1801 ET 1962</tspan>
+        </text>
+
+        <text className={"stackpopText"} textAnchor={"start"}>
+          <tspan x={gridLeft + 100} y={110} >Paris</tspan>
+          <tspan dx={150}>Reste de la Seine</tspan>
+          <tspan dx={150}>Reste de la région</tspan>
+          <tspan x={gridLeft - 20} y={gridTop - 10}>%</tspan>
+        </text>
+
+        <g strokeWidth={2} stroke={colorA} >
+          <rect x={gridLeft + 60} y={95} rx={1} ry={1} width={30} height={20} fill={colorA} ></rect>
+          <rect x={gridLeft + 235} y={95} rx={1} ry={1} width={30} height={20} fill={"url('#circles')"} ></rect>
+          <rect x={gridLeft + 475} y={95} rx={1} ry={1} width={30} height={20} fill={colorZ} ></rect>
+        </g>
 
       </svg>
     </div >
