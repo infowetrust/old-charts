@@ -41,32 +41,30 @@ h1 {
   text-align: center;
   margin-left: auto;
 margin-right: auto;
-/* position:fixed;
-  mix-blend-mode: multiply; */
+position:absolute;
+  mix-blend-mode: multiply;
 }
 
 .blue {
   color: blue;
-  transform: translate(0px,-1px);
+  transform: translate(0px,-.1vw);
 }
 
 .red {
   color: red;
-  transform: translate(1px,1px);
+  transform: translate(.1vw,.1vw);
 }
 
 .yellow {
   color: yellow;
-  transform: translate(-1px,1px);
+  transform: translate(-.1vw,.1vw);
 }
 
 .center {
   display: flex;
-  justify-content: center;
-  /* margin: 0;
-  padding: 0; */
-  
+  justify-content: center; 
 }
+
 
 .line {
   width: 45em;
@@ -84,6 +82,7 @@ margin-right: auto;
   font-size: 14px;
   line-height: 18px;
   font-weight: 600;
+  margin-top: 20vh;
 }
 /* gridBridge */
 .gridBridgeBlue {
