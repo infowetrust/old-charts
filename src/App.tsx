@@ -18,7 +18,7 @@ export default function App() {
       </div>
       {/* See https://codepen.io/helmsmith/pen/xbBEWy
       and https://css-tricks.com/basics-css-blend-modes/ */}
-      <p className="tagline">Analog excellence digitized for the web.<br />By RJ Andrews and friends.</p>
+      <p className="tagline margintop">Analog excellence digitized for the web.<br />By RJ Andrews and friends.</p>
 
       <div id="1967paris211" className="line"></div>
       <Stackpop />

@@ -82,6 +82,9 @@ position:absolute;
   font-size: 14px;
   line-height: 18px;
   font-weight: 600;
+}
+
+.margintop {
   margin-top: 20vh;
 }
 /* gridBridge */
