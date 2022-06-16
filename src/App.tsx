@@ -22,7 +22,7 @@ export default function App() {
 
       <div id="1967paris211" className="line"></div>
       <Stackpop />
-      <p>100%-percent stacked bar-charts are the best stacked bar-charts. This one is held together by gestalt: There is no visible grid. There is no boundary box. The bars alone are the chart. They also feature a nice circle fill pattern.</p>
+      <p>100-percent stacked bar-charts are the best stacked bar-charts. This one is held together by gestalt: There is no visible grid. There is no boundary box. The bars alone are the chart. They also feature a nice circle fill pattern.</p>
       <p>While this chart may not be perfect (the design, for example, does not highlight the data's irregular time intervals), its overall composition makes a bold impact. It is based on a chart on page 211 of the <i>Atlas de Paris et de la Région Parisienne</i> (1967) by Jacqueline Beaujeu-Garnier and Jean Bastié.</p>
       <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Stackpop/index.tsx">CHART CODE</a></p>
 
