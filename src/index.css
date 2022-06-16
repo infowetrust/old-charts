@@ -39,8 +39,8 @@ h1 {
   -webkit-font-smoothing:antialiased;
   line-height: 0;
   text-align: center;
-  margin-left: auto;
-margin-right: auto;
+  /* margin-left: auto;
+margin-right: auto; */
 position:absolute;
   mix-blend-mode: multiply;
 }
@@ -63,6 +63,7 @@ position:absolute;
 .center {
   display: flex;
   justify-content: center; 
+  margin-bottom: 10vw;
 }
 
 
@@ -84,9 +85,6 @@ position:absolute;
   font-weight: 600;
 }
 
-.margintop {
-  margin-top: 10vw;
-}
 /* gridBridge */
 .gridBridgeBlue {
   fill: var(--cheyssonBlue);
