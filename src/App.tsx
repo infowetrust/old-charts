@@ -1,3 +1,4 @@
+import Title from "./components/Title"
 import Curve from "./components/Curve"
 import Column from "./components/Column"
 import Bar from "./components/Bar"
@@ -9,16 +10,17 @@ export default function App() {
   const colors = ["red"]
   return (
     <div >
-      {/* <h1 >&nbsp;CHARTS!</h1> */}
+      <h1 >&nbsp;CHARTS!</h1>
 
-      <div className="center">
+      {/* <Title /> */}
+      {/*       <div className="center">
         <h1 className="blue ">&nbsp;CHARTS!</h1>
         <h1 className="red ">&nbsp;CHARTS!</h1>
         <h1 className="yellow">&nbsp;CHARTS!</h1>
-      </div>
+      </div> */}
       {/* See https://codepen.io/helmsmith/pen/xbBEWy
       and https://css-tricks.com/basics-css-blend-modes/ */}
-      <p className="tagline ">Analog excellence digitized for the web.<br />By RJ Andrews and friends.</p>
+      <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
 
       <div id="1967paris211" className="line"></div>
       <Stackpop />

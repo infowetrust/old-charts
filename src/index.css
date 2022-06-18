@@ -33,7 +33,7 @@ a:visited {
 }
 
 h1 {
-  font-size: 8vw;
+  font-size: 12vw;
   letter-spacing: 0.25vw;
   font-weight: 100;
   -webkit-font-smoothing:antialiased;
@@ -41,23 +41,46 @@ h1 {
   text-align: center;
   /* margin-left: auto;
 margin-right: auto; */
-position:absolute;
+/* position:absolute; */
+  mix-blend-mode: multiply;
+}
+
+.title {
+  font-size: 8vw;
+  letter-spacing: 0.25vw;
+  font-weight: 100;
+  -webkit-font-smoothing:antialiased;
+  text-align: center;
+  mix-blend-mode: multiply;
+}
+
+.title4 {
+  font-family: Garamond, Georgia, 'Times New Roman', Times, serif;
+  font-size: 54px;
+  letter-spacing: 0.25vw;
+  font-weight: 100;
+  -webkit-font-smoothing:antialiased;
+  text-align: center;
+  text-anchor: middle;
+  /* margin-left: auto;
+margin-right: auto; */
+/* position:absolute; */
   mix-blend-mode: multiply;
 }
 
 .blue {
   color: blue;
-  transform: translate(0px,-.1vw);
+  transform: translate(0vw,7.85vw);
 }
 
 .red {
   color: red;
-  transform: translate(.1vw,.1vw);
+  transform: translate(.15vw,0vw);
 }
 
 .yellow {
   color: yellow;
-  transform: translate(-.1vw,.1vw);
+  transform: translate(-.15vw,-8vw);
 }
 
 .center {
