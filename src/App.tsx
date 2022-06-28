@@ -5,6 +5,7 @@ import Bar from "./components/Bar"
 import Gold from "./components/Gold"
 import Gridbridge from "./components/Gridbridge"
 import Stackpop from "./components/Stackpop"
+import Palaestina from "./components/Palaestina"
 
 export default function App() {
   const colors = ["red"]
@@ -21,6 +22,8 @@ export default function App() {
       {/* See https://codepen.io/helmsmith/pen/xbBEWy
       and https://css-tricks.com/basics-css-blend-modes/ */}
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
+      {/* <div id="Palaestina" className="line"></div>
+      <Palaestina /> */}
 
       <div id="1967paris211" className="line"></div>
       <Stackpop />

@@ -34,11 +34,11 @@ export default function Stackpop() {
 
   {/* 1. Canvas and grid*/ }
   const gridWidth = 700;
-  const gridHeight = gridWidth * .55;
+  const gridHeight = gridWidth * .6;
 
   const marginTop = 150;
   const marginBottom = 50;
-  const marginLeft = 80;
+  const marginLeft = 25;
   const marginRight = marginLeft;
 
   const svgWidth = gridWidth + marginLeft + marginRight;

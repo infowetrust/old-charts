@@ -2,6 +2,9 @@
   --cheyssonBlue: steelBlue;
   --cheyssonBlack: #333333;
   --cheyssonPaper: linen;
+  --TrietschRed: #e5592e;
+  --TrietschBlue: #c3e2e5;
+  --TrietschGrey: #beac9a;
 }
 
 body{
@@ -185,6 +188,23 @@ margin-right: auto; */
   font-weight: 400;
   font-size: 14px;
   fill: var(--cheyssonBlack);
+}
+
+.palaestinaTitle {
+  font-family: Verdana, Garamond, Georgia, 'Times New Roman', Times, serif;
+  font-weight: 500;
+  text-anchor: middle;
+  fill: var(--cheyssonBlack);
+  letter-spacing: -1px;
+}
+
+.palaestinaLabel {
+  font-family: Verdana, Garamond, Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+  text-anchor: start;
+  fill: var(--cheyssonBlack);
+  letter-spacing: -1.5px;
+  
 }
 
 svg,
