@@ -25,7 +25,7 @@ export default function App() {
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
       <div id="Palaestina" className="line"></div>
       <Palaestina6 />
-      <p>David Trietsch's folio, <i>Pälastina</i>  (Berlin, 1926), pairs a score of clever bar charts with line graphs and geographic maps to convey demographic, geographic, and financial statistics.</p>
+      <p>Davis Trietsch's folio, <i>Pälastina</i>  (Berlin, 1926), pairs a score of clever bar charts with line graphs and geographic maps to convey demographic, geographic, and financial statistics.</p>
       <p>His sheets' rounded typeface and punchy color palette combine for a presentation that demands attention. Innovative features, which do not seem to be adopted anywhere else, include <a target="_blank" rel="noopener" href="https://www.davidrumsey.com/luna/servlet/s/zyx950">diagonal&nbsp;labels</a> and bars <a target="_blank" rel="noopener" href="https://www.davidrumsey.com/luna/servlet/s/154izk">within&nbsp;bars</a>. The combined effect of color, mark, and text creates a coherent proclamation unseen in other data graphics.</p>
       <p>Trietsch was a German writer and Zionist economic politician. Born in Dresden, he also lived in New York (where he studied migration issues) and Berlin before emigrating to Palestine in 1932.</p>
       <p>See the the entire folio of Trietsch charts and maps in the David Rumsey <a target="_blank" rel="noopener" href="https://www.davidrumsey.com/luna/servlet/s/14c25v">Map&nbsp;Collection</a>.</p>
