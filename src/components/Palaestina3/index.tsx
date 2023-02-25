@@ -4,15 +4,15 @@ import _, { uniq, map } from "lodash";
 
 import palaestina from "../../data/palaestina";
 
-export default function Palaestina() {
-  /*
+export default function Palaestina3() {
+  /* Inspiration https://www.davidrumsey.com/luna/servlet/s/3p1eqk
   0. Map data to dimensions
-  1. Canvas
-  2. Grid
-  3. Grid labels
+  1. Canvas and grid
+  2. Background
+  3. Grid lines
   4. Data marks
   5. Data labels
-  6. Guide lines   
+  6. Title and legend   
   */
 
   //styling
@@ -65,11 +65,11 @@ export default function Palaestina() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <svg width={svgWidth} height={svgHeight}>
-        {/* background */}
+        {/* 2. Background */}
         <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorZ} stroke="black" strokeWidth={8} />
         <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill="none" stroke="black" strokeWidth={stroke} />
 
-        {/* Gridlines */}
+        {/* 3. Grid lines */}
         {independents.map((independents, i) => {
           return (
             <line
@@ -117,7 +117,7 @@ export default function Palaestina() {
           );
         })}
 
-        {/* Data labels*/}
+        {/* 5. Data labels*/}
         {dependentsKapital.map((Kapital, i) => {
           const textX = gridLeft + .5 * _scaleX(Kapital);
           const textY = gridTop + .5 * gridCellY + i * gridCellY + verticalCenter;
@@ -154,7 +154,7 @@ export default function Palaestina() {
           );
         })}
 
-        {/* Title and legend*/}
+        {/* 6. Title and legend*/}
         <g stroke={colorB} z-index="10" strokeWidth="6">
           <line
             x1={gridCenter - 325} x2={gridCenter + 325}
@@ -168,9 +168,10 @@ export default function Palaestina() {
         </g>
 
         <text className={"palaestinaTitle"}>
-          <tspan x={gridLeft + (gridWidth / 2)} y={50} fontSize={32}>Jüdische Kapital - Investierung in Palästina</tspan>
-          <tspan x={gridLeft + (gridWidth / 2)} dy={40} fontSize={28}>– in Millionen Pfund Sterline (abgerundet) –</tspan>
-          <tspan x={gridLeft + (gridWidth / 2)} dy={40} fontSize={22} fontStyle={"italic"}>Status Mitte 1925:20 Millionen Pfund</tspan>
+          <tspan x={gridLeft + (gridWidth / 2)} y={50} fontSize={32}>Entwicklung und Bedeutung der Tabakkultur
+          </tspan>
+          <tspan x={gridRight} y={50} fontSize={32}>Entwicklung und Bedeutung der Tabakkultur
+          </tspan>
         </text>
 
       </svg>

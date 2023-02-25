@@ -191,19 +191,21 @@ margin-right: auto; */
 }
 
 .palaestinaTitle {
-  font-family: Verdana, Garamond, Georgia, 'Times New Roman', Times, serif;
-  font-weight: 500;
+  font-family: "din-2014-rounded-variable","circe-rounded",Verdana, Garamond, Georgia, 'Times New Roman', Times, serif;
+  font-style: normal;
+  font-variation-settings: "wght" 500;
   text-anchor: middle;
   fill: var(--cheyssonBlack);
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
 }
 
 .palaestinaLabel {
-  font-family: Verdana, Garamond, Georgia, 'Times New Roman', Times, serif;
-  font-weight: 400;
+  font-family: "din-2014-rounded-variable","circe-rounded",Verdana, Garamond, Georgia, 'Times New Roman', Times, serif;
+  font-style: normal;
+  font-variation-settings: "wght" 500;
   text-anchor: start;
   fill: var(--cheyssonBlack);
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
   
 }
 

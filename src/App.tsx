@@ -5,7 +5,8 @@ import Bar from "./components/Bar"
 import Gold from "./components/Gold"
 import Gridbridge from "./components/Gridbridge"
 import Stackpop from "./components/Stackpop"
-import Palaestina from "./components/Palaestina"
+import Palaestina14 from "./components/Palaestina14"
+import Palaestina6 from "./components/Palaestina6"
 
 export default function App() {
   const colors = ["red"]
@@ -22,8 +23,13 @@ export default function App() {
       {/* See https://codepen.io/helmsmith/pen/xbBEWy
       and https://css-tricks.com/basics-css-blend-modes/ */}
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
-      {/* <div id="Palaestina" className="line"></div>
-      <Palaestina /> */}
+      <div id="Palaestina" className="line"></div>
+      <Palaestina6 />
+      <p>David Trietsch's folio, <i>Pälastina</i>  (Berlin, 1926), pairs a score of clever bar charts with line graphs and geographic maps to convey demographic, geographic, and financial statistics.</p>
+      <p>His sheets' rounded typeface and punchy color palette combine for a presentation that demands attention. Innovative features, which do not seem to be adopted anywhere else, include <a target="_blank" rel="noopener" href="https://www.davidrumsey.com/luna/servlet/s/zyx950">diagonal&nbsp;labels</a> and bars <a target="_blank" rel="noopener" href="https://www.davidrumsey.com/luna/servlet/s/154izk">within&nbsp;bars</a>. The combined effect of color, mark, and text creates a coherent proclamation unseen in other data graphics.</p>
+      <p>Trietsch was a German writer and Zionist economic politician. Born in Dresden, he also lived in New York (where he studied migration issues) and Berlin before emigrating to Palestine in 1932.</p>
+      <p>See the the entire folio of Trietsch charts and maps in the David Rumsey <a target="_blank" rel="noopener" href="https://www.davidrumsey.com/luna/servlet/s/14c25v">Map&nbsp;Collection</a>.</p>
+      <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Palaestina6/index.tsx">CHART CODE</a></p>
 
       <div id="1967paris211" className="line"></div>
       <Stackpop />
