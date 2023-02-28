@@ -18,30 +18,33 @@ export default function Palaestina14() {
   //styling
   const colorA = getComputedStyle(document.documentElement).getPropertyValue('--TrietschBlue');
   const colorB = getComputedStyle(document.documentElement).getPropertyValue('--TrietschRed');
+  const colorB2 = getComputedStyle(document.documentElement).getPropertyValue('--TrietschDarkRed');
   const colorC = getComputedStyle(document.documentElement).getPropertyValue('--TrietschGrey');
+  const colorD = getComputedStyle(document.documentElement).getPropertyValue('--TrietschGreen');
 
   const colorX = "red"; //used for troubleshooting
   const colorY = getComputedStyle(document.documentElement).getPropertyValue('--cheyssonBlack');
   const colorZ = "linen";
 
-  const verticalCenter = 10;
+  const verticalCenter = 11;
   const stroke = 1.5;
 
   {/* 0. Map data to dimensions */ }
-  const independents = _.map(palaestina["6"], "investor");
-  const nIndependents = independents.length;
+  const independentsA = _.map(palaestina["14a"], "year");
+  const nIndependentsA = independentsA.length;
 
-  const dependentsKapital = _.map(palaestina["6"], "Kapital");
-  const dependentsInvestor = _.map(palaestina["6"], "investor");
-  const detail = _.map(palaestina["6"], "detail");
-  const detail2 = _.map(palaestina["6"], "detail2");
-  const detail3 = _.map(palaestina["6"], "detail3");
+  const dependentsDunam = _.map(palaestina["14a"], "dunam");
+  const dependentsKeren = _.map(palaestina["14a"], "keren");
+  const dependentsTextA = _.map(palaestina["14a"], "textA");
+  const dependentsTextB = _.map(palaestina["14a"], "textB");
+  const dependentsPercentage = _.map(palaestina["14a"], "percent");
+  const keren = [independentsA,]
 
   {/* 1. Canvas and grid*/ }
   const gridWidth = 700;
-  const gridHeight = gridWidth * .55;
+  const gridHeight = gridWidth * .6;
 
-  const marginTop = 170;
+  const marginTop = 120;
   const marginBottom = 25;
   const marginLeft = marginBottom;
   const marginRight = marginLeft;
@@ -56,47 +59,42 @@ export default function Palaestina14() {
   const gridCenter = (gridLeft + gridRight) / 2;
 
   //calculate grid cell dimensions
-  const gridCellY = gridHeight / (nIndependents);
+  const gridCellY = gridHeight / (nIndependentsA);
 
   //stretch data across grid
-  const _scaleX = scaleLinear().domain([0, 10]).range([gridLeft, gridRight]);
+  const _scaleXA = scaleLinear().domain([0, 1200000]).range([0, gridWidth]);
+
+  //title position
+  const titleY = 70;
+  const titleUnderlineY = titleY + 6;
 
   // draw chart
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <svg width={svgWidth} height={svgHeight}>
+
+
         {/* 2. Background */}
         <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorZ} stroke="black" strokeWidth={8} />
-        <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill="none" stroke="black" strokeWidth={stroke} />
+        <rect x={gridLeft} y={marginBottom} width={gridWidth} height={svgHeight - 2 * marginBottom} fill="none" stroke="black" strokeWidth={stroke} />
 
         {/* 3. Grid lines */}
-        {independents.map((independents, i) => {
-          return (
-            <line
-              stroke="black"
-              strokeWidth={stroke}
-              stroke-dasharray="14, 10"
-              x1={gridLeft}
-              x2={gridRight}
-              y1={gridTop + i * gridCellY}
-              y2={gridTop + i * gridCellY}
-            />
-          );
-        })}
+
         {/* 4. Data marks*/}
-        <PatternLines
-          id="linesRed"
+        {/* <PatternLines
+          id="linesRedTight"
           height={3}
           width={3}
           stroke={colorB}
           strokeWidth={stroke}
           orientation={['diagonal']}
-        />
+        /> */}
 
-        {dependentsKapital.map((bar, i) => {
+        {/* main bars */}
+        {dependentsDunam.map((bar, i) => {
           const left = gridLeft;
           const top = gridTop + i * gridCellY;
-          const barLength = _scaleX(bar);
+          const barLength = _scaleXA(bar);
           const height = gridCellY;
           return (
             <rect
@@ -106,50 +104,100 @@ export default function Palaestina14() {
               height={height}
               stroke={colorY}
               strokeWidth={stroke}
-              fill={
-                i < 2 ? colorA
-                  : i === 2 ? colorC
-                    : i === 3 ? "url('#linesRed')"
-                      : colorB}
+              fill={colorD}
             >
               {bar}
             </rect>
           );
         })}
 
-        {/* 5. Data labels*/}
-        {dependentsKapital.map((Kapital, i) => {
-          const textX = gridLeft + .5 * _scaleX(Kapital);
-          const textY = gridTop + .5 * gridCellY + i * gridCellY + verticalCenter;
-          const text =
-            i === 4 ? Kapital + " Millionen" : Kapital;
+        {/* inset bars */}
+
+        {/* A marker to be used as an arrowhead. See https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker */}
+        <defs>
+          <marker
+            id="arrow"
+            viewBox="0 0 10 6"
+            refX="10"
+            refY="3"
+            markerWidth="7"
+            markerHeight="5"
+            orient="auto-start-reverse">
+            <path d="M 0 0 L 10 3 L 0 6" stroke={colorB2} strokeWidth={stroke} fill={"none"} />
+          </marker>
+        </defs>
+
+        {dependentsKeren.map((bar, i) => {
+          const left = gridLeft + 100;
+          const barLength = _scaleXA(bar) * 2;
+          const center = left + barLength / 2;
+          const right = left + barLength;
+
+          const top = gridTop + (i + .5) * gridCellY;
+          const height = gridCellY / 2;
+          const bottom = top + height;
+
+          const textA = i >= 3 ? bar / 1000 : "";
+          const textB = i >= 3 ? " 000 " : "";
+          const textC = i >= 3 ? "D" : "";
+
+
+          const textLabel = i === 4 ? "Anteil des" :
+            i === 5 ? "Keren Kajemeth Lejisrael" : "";
+          const textPercent = i === 3 ? "= 4 %" :
+            i === 4 ? "= 17,5 %" :
+              i === 5 ? "= 25 %" : "";
+
+          const textMargin = 5;
+          const textShift = i === 3 ? 8 : -50;
+
+          const insetColor = i >= 3 ? colorB2 : "none";
+          const pathD1 = i === 3 ? `M ${left + 15} ${bottom} q 0 ${height / 2}, 20 ${height}`
+            : i === 4 ? `M ${left + 75} ${bottom} q 0 ${height / 2}, 30 ${height}`
+              : "none";
+
           return (
-            <text x={textX} y={textY} className={"palaestinaTitle"}  >
-              <tspan fontSize="32" textAnchor="start">{text}</tspan>
+            <g stroke={insetColor} strokeWidth={stroke * 1.5} strokeLinecap="round">
+              <line x1={left} x2={left} y1={bottom} y2={top}>{bar}</line>
+              <line x1={left} x2={left + barLength} y1={top} y2={top}>{bar}</line>
+              <line x1={left + barLength} x2={left + barLength} y1={top} y2={bottom}>{bar}</line>
+              <path d={pathD1} fill="none" markerEnd="url(#arrow)" />
+              <text x={right + textShift} y={top + 15} className={"palaestinaInset"} stroke={"none"}>
+                <tspan fontSize="14" textAnchor="start" >{textA}</tspan>
+                <tspan fontSize="12" textAnchor="start" >{textB}</tspan>
+                <tspan fontSize="14" textAnchor="start" >{textC}</tspan>
+                <tspan fontSize="14" textAnchor="start" x={right + textShift} dy="14">{textPercent}</tspan>
+              </text>
+              <text x={left + (i - 2) * 30} y={top + 24} className={"palaestinaInset"} stroke={"none"}>
+                <tspan fontSize="18" textAnchor="middle" >{textLabel}</tspan>
+              </text>
+            </g>
+          );
+        })}
+
+        {/* 5. Data labels*/}
+        {independentsA.map((year, i) => {
+          const textMargin = 4;
+          const textX = gridLeft + textMargin;
+          const textY = gridTop + i * gridCellY + 24;
+          const text = i === 5 ? year + " (Anfang)" : year;
+          return (
+            <text x={textX} y={textY} className={"palaestinaTitle"} fontWeight={800} >
+              <tspan fontSize="18" textAnchor="start">{text}</tspan>
             </text>
           );
         })}
 
-        <g stroke={colorB} z-index="10" strokeWidth="4">
-          <line
-            x1={gridLeft + .85 * gridWidth} x2={gridLeft + .94 * gridWidth}
-            y1={gridTop + 4 * gridCellY + 38} y2={gridTop + 4 * gridCellY + 38} />
-          <line
-            x1={gridLeft + .85 * gridWidth} x2={gridLeft + .945 * gridWidth}
-            y1={gridTop + 4 * gridCellY + 62} y2={gridTop + 4 * gridCellY + 62} />
-        </g>
-
-        {dependentsInvestor.map((investor, i) => {
-          const textX = gridLeft + .25 * gridWidth + i * (.15 * gridWidth);
-          const textY = gridTop + .3 * gridCellY + i * gridCellY + verticalCenter;
-          // const redUnderline = i === 4 ? "XXX" : "";
+        {dependentsDunam.map((dunam, i) => {
+          const textMargin = 8;
+          const textX = gridLeft + _scaleXA(dunam) - textMargin;
+          const textY = gridTop + (i + 1) * gridCellY - textMargin;
+          const thousand = dunam / 1000;
+          const text = i === nIndependentsA - 1 ? " 000 Dunam" : " 000";
           return (
-            <text className={"palaestinaLabel"} textAnchor={"start"}>
-              <tspan x={textX} y={textY} fontSize="22" textDecoration={"underline"}>{investor}</tspan>
-              <tspan y={textY} fontSize="18" >{detail[i]}</tspan>
-              <tspan x={textX} y={textY + 24} fontSize="18" >{detail2[i]}</tspan>
-              <tspan x={textX} y={textY + 24} fontSize="22" textDecoration={"underline"}>{detail3[i]}</tspan>
-              {/* <tspan x={textX} dy={4} fontSize="22" textDecoration={"underline"} fill={colorB}>{redUnderline}</tspan> */}
+            <text x={textX} y={textY} className={"palaestinaTitle"}  >
+              <tspan fontSize="26" textAnchor="end">{thousand}</tspan>
+              <tspan fontSize="24" textAnchor="end">{text}</tspan>
             </text>
           );
         })}
@@ -157,20 +205,13 @@ export default function Palaestina14() {
         {/* 6. Title and legend*/}
         <g stroke={colorB} z-index="10" strokeWidth="6">
           <line
-            x1={gridCenter - 325} x2={gridCenter + 325}
-            y1={56} y2={56} />
-          <line
-            x1={gridCenter - 290} x2={gridCenter + 290}
-            y1={96} y2={96} />
-          <line
-            x1={gridCenter - 190} x2={gridCenter + 190}
-            y1={136} y2={136} />
+            x1={gridCenter - 280} x2={gridCenter + 280}
+            y1={titleUnderlineY} y2={titleUnderlineY} />
         </g>
 
         <text className={"palaestinaTitle"}>
-          <tspan x={gridLeft + (gridWidth / 2)} y={50} fontSize={32}>Jüdische Kapital - Investierung in Palästina</tspan>
-          <tspan x={gridLeft + (gridWidth / 2)} dy={40} fontSize={28}>– in Millionen Pfund Sterline (abgerundet) –</tspan>
-          <tspan x={gridLeft + (gridWidth / 2)} dy={40} fontSize={22} fontStyle={"italic"}>Status Mitte 1925:20 Millionen Pfund</tspan>
+          <tspan x={gridLeft + (gridWidth / 2)} y={titleY} fontSize={39}>Der jüdische Bodenbesitz in Palästina</tspan>
+          <tspan x={gridLeft + (gridWidth / 2)} dy={40} fontSize={26}>Wachstum von 1890 bis 1926</tspan>
         </text>
 
       </svg>

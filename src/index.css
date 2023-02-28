@@ -3,8 +3,10 @@
   --cheyssonBlack: #333333;
   --cheyssonPaper: linen;
   --TrietschRed: #e5592e;
+  --TrietschDarkRed: #9b4429;
   --TrietschBlue: #c3e2e5;
   --TrietschGrey: #beac9a;
+  --TrietschGreen: #97afa0;
 }
 
 body{
@@ -197,6 +199,16 @@ margin-right: auto; */
   text-anchor: middle;
   fill: var(--cheyssonBlack);
   letter-spacing: -1.5px;
+}
+
+.palaestinaInset {
+  font-family: "din-2014-rounded-variable","circe-rounded",Verdana, Garamond, Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
+  font-variation-settings: "wght" 700;
+  text-anchor: middle;
+  fill: var(--TrietschDarkRed);
+  letter-spacing: -1.5px;
+  stroke: "none";
 }
 
 .palaestinaLabel {
