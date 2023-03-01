@@ -25,7 +25,7 @@ export default function App() {
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
       <div id="Palaestina" className="line"></div>
       <Palaestina6 />
-      <p>Davis Trietsch's folio, <i>Pälastina</i>  (Berlin, 1926), pairs a score of clever bar charts with line graphs and geographic maps to convey demographic, geographic, and financial statistics.</p>
+      <p>Davis Trietsch's folio, <i>Pälastina</i>  (Berlin: 1926), pairs a score of clever bar charts with line graphs and geographic maps to convey demographic, geographic, and financial statistics.</p>
       <p>The rounded typeface and punchy color palette combine for a presentation that demands attention. Innovative features, which do not seem to be adopted anywhere else, include diagonal labels and bars-within-bars, which are reproduced below. Note that the inset bars, which illustrate a sub-group's contribution to the total, are illustrated at the same scale and annotated with the percentage relation to their whole.</p>
       <Palaestina14 />
       <p>Also note how text-styling makes numerals more readable by emphasizing the thousands. The combined effect of color, mark, text, and innovative features creates a coherent proclamation unseen in other data graphics.

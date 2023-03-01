@@ -66,14 +66,14 @@ export default function Palaestina6() {
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <svg width={svgWidth} height={svgHeight}>
         {/* 2. Background */}
-        <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorZ} stroke="black" strokeWidth={8} />
-        <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill="none" stroke="black" strokeWidth={stroke} />
+        <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorZ} stroke={colorY} strokeWidth={8} />
+        <rect x={gridLeft} y={gridTop} width={gridWidth} height={gridHeight} fill="none" stroke={colorY} strokeWidth={stroke} />
 
         {/* 3. Grid lines */}
         {independents.map((independents, i) => {
           return (
             <line
-              stroke="black"
+              stroke={colorY}
               strokeWidth={stroke}
               stroke-dasharray="14, 10"
               x1={gridLeft}

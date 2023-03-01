@@ -22,11 +22,11 @@ const data: any = {
     { year: 1926, dunam: 1200000, keren: 250000, textA: "Keren Kajemeth Lejisrael", textB: null, percent: "25" }
   ],
   "14b": [
-    { year: 1893, Siedlungen: 21 },
-    { year: 1903, Siedlungen: 24 },
-    { year: 1913, Siedlungen: 43 },
-    { year: 1923, Siedlungen: 74 },
-    { year: 1926, Siedlungen: 120 },
+    { year: 1893, siedlungen: 21 },
+    { year: 1903, siedlungen: 24 },
+    { year: 1913, siedlungen: 43 },
+    { year: 1923, siedlungen: 74 },
+    { year: 1926, siedlungen: 120 },
   ],
 };
 
