@@ -226,19 +226,12 @@ export default function Gridbridge() {
               x2={gridLeft}
               y1={gridBottom - i * gridCellFrancs}
               y2={gridBottom - i * gridCellFrancs}
-              stroke-dasharray="2, 2"
+              strokeDasharray="2, 2"
             />
           );
         })}
 
-        <line
-          key={`vertical-centerline-black`}
-          className={"gridBridgeLine"}
-          x1={gridLeft - .5 * channelSide}
-          x2={gridLeft - .5 * channelSide}
-          y1={gridBottom}
-          y2={gridTop + 35}
-        />
+
         {/* left side vertical line */}
         <line
           key={`vertical-centerline-black`}
@@ -299,13 +292,13 @@ export default function Gridbridge() {
         {ticksPerKmLines.map((dependents, i) => {
           return (
             <line
-              key={`horizontal-gridline-dash-right${i}`}
+              key={`horizontal-gridline-dash-right--${i}`}
               className={"gridBridgeLine"}
               x1={gridRight}
               x2={gridRight + .65 * channelSide}
               y1={gridBottom - i * gridCellFrancs}
               y2={gridBottom - i * gridCellFrancs}
-              stroke-dasharray="2, 2"
+              strokeDasharray="2, 2"
             />
           );
         })}
@@ -321,7 +314,7 @@ export default function Gridbridge() {
               x={gridLeft + i * gridCellX}
               y={gridBottom + 10}
             >
-              <tspan letterSpacing={-.4} font-size={textSizeTiny}>{year}</tspan>
+              <tspan letterSpacing={-.4} fontSize={textSizeTiny}>{year}</tspan>
             </text>
           );
         })}
@@ -329,7 +322,7 @@ export default function Gridbridge() {
         {/* 4. Data */}
         {/* Labels on select data points. Text background color filter method from https://stackoverflow.com/questions/15500894/background-color-of-text-in-svg */}
         <filter x="0" y="0" width="1" height="1" id="block">
-          <feFlood flood-color={colorZ} result="bg" />
+          <feFlood floodColor={colorZ} result="bg" />
           <feMerge>
             <feMergeNode in="bg" />
             <feMergeNode in="SourceGraphic" />
@@ -337,8 +330,8 @@ export default function Gridbridge() {
         </filter>
 
         <filter >
-          <feDropShadow dx="0" dy="0" stdDeviation="3" flood-opacity="0.5" />
-          <feFlood flood-color={colorX} result="bg" />
+          <feDropShadow dx="0" dy="0" stdDeviation="3" floodOpacity="0.5" />
+          <feFlood floodColor={colorX} result="bg" />
           <feMerge>
             <feMergeNode in="bg" />
             <feMergeNode in="SourceGraphic" />
@@ -360,8 +353,8 @@ export default function Gridbridge() {
                   ? "block" : "none"
               }
             >
-              <tspan font-size={textSize}>{label}</tspan>
-              <tspan font-size={textSize * .66} baseline-shift="super">F</tspan>
+              <tspan fontSize={textSize}>{label}</tspan>
+              <tspan fontSize={textSize * .66} baselineShift="super">F</tspan>
             </text>
           );
         })}
@@ -378,8 +371,8 @@ export default function Gridbridge() {
                   ? "block" : "none"
               }
             >
-              <tspan font-size={textSize}>{label}</tspan>
-              <tspan font-size={textSize * .66} baseline-shift="super">F</tspan>
+              <tspan fontSize={textSize}>{label}</tspan>
+              <tspan fontSize={textSize * .66} baselineShift="super">F</tspan>
             </text>
           );
         })}
@@ -396,8 +389,8 @@ export default function Gridbridge() {
                   ? "block" : "none"
               }
             >
-              <tspan font-size={textSize}>{label}</tspan>
-              <tspan font-size={textSize * .66} baseline-shift="super">F</tspan>
+              <tspan fontSize={textSize}>{label}</tspan>
+              <tspan fontSize={textSize * .66} baselineShift="super">F</tspan>
             </text>
           );
         })}
@@ -414,8 +407,8 @@ export default function Gridbridge() {
                   ? "block" : "none"
               }
             >
-              <tspan font-size={textSize}>{labelComma}</tspan>
-              <tspan font-size={textSize * .8} baseline-shift="super" font-style="italic"> voyageurs</tspan>
+              <tspan fontSize={textSize}>{labelComma}</tspan>
+              <tspan fontSize={textSize * .8} baselineShift="super" fontStyle="italic"> voyageurs</tspan>
             </text>
           );
         })}
@@ -432,8 +425,8 @@ export default function Gridbridge() {
                   ? "block" : "none"
               }
             >
-              <tspan font-size={textSize}>{labelComma}</tspan>
-              <tspan font-size={textSize * .8} baseline-shift="super">T</tspan>
+              <tspan fontSize={textSize}>{labelComma}</tspan>
+              <tspan fontSize={textSize * .8} baselineShift="super">T</tspan>
             </text>
           );
         })}
@@ -636,7 +629,7 @@ export default function Gridbridge() {
             className={"gridBridgeCurve"}
             stroke={colorB}
             d={_fastLine}
-            stroke-dasharray="9,6,2,6"
+            strokeDasharray="9,6,2,6"
           />
         )}
         {typeof _slowLine === "string" && (
@@ -645,7 +638,7 @@ export default function Gridbridge() {
             className={"gridBridgeCurve"}
             stroke={colorB}
             d={_slowLine}
-            stroke-dasharray="2,3"
+            strokeDasharray="2,3"
           />
         )}
         {typeof _passengersLine === "string" && (
@@ -654,7 +647,7 @@ export default function Gridbridge() {
             className={"gridBridgeCurve"}
             stroke={colorA}
             d={_passengersLine}
-            stroke-dasharray="6,4"
+            strokeDasharray="6,4"
           />
         )}
         {typeof _tonsLine === "string" && (
@@ -679,7 +672,7 @@ export default function Gridbridge() {
 
         {/* Main chart title */}
         <text textAnchor="middle" fill={colorA} x={gridLeft + (gridWidth / 2)} y={.8 * marginTop}>
-          <tspan font-size={18} font-weight={800}>Eléments absolus</tspan>
+          <tspan fontSize={18} fontWeight={800}>Eléments absolus</tspan>
         </text>
 
         {/* Channel titles */}

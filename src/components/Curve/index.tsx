@@ -1,18 +1,14 @@
 import { scaleLinear, scaleBand, extent, line } from "d3";
-// import { AxisLeft, AxisBottom } from "@visx/axis";
-import { PatternLines } from '@visx/pattern'; // https://airbnb.io/visx/docs/pattern
 import _, { uniq, map } from "lodash";
 
-
 import committee from "../../data/committee";
+
 // properties
 type Props = {
   lineColor?: string
 }
 export default function Curve(props: Props) {
-  const { lineColor } = props
-  console.log(props)
-
+  const { lineColor } = props;
   const tons = _.map(committee["14b"], "tons");
   const months = _.map(committee["14b"], "month");
 
@@ -25,7 +21,6 @@ export default function Curve(props: Props) {
   4. Data labels
   
   Why do this? 
-  
   * Copy, pasteable opinionated examples of basic chart types that offer full control
   
   */
@@ -38,11 +33,14 @@ export default function Curve(props: Props) {
   const gridBottom = svgSize - margin;
   const gridHeight = gridWidth * (10 / 11);
   const gridTop = svgSize - margin - gridHeight;
+
   const gridSeparation = gridWidth / 11;
+
   const strokeWidth = 1;
   const strokeWidthEmphasis = 3;
   const halfStrokeWidthForPixelPerfectGridAlignment = strokeWidth / 2;
-  const topTextOffsetY = 20; /* for a squat chart :) */
+
+  const topTextOffsetY = 20; /* for a squat chart */
 
   const leftTicks = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200];
 
@@ -58,7 +56,6 @@ export default function Curve(props: Props) {
     .y((d) => {
       // @ts-ignore
       return _scaleY(d);
-
     });
 
   const _tonsLine = _lineMaker(tons);

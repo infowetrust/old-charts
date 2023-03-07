@@ -142,7 +142,7 @@ export default function Column() {
           const textY = gridBottom - i * gridCellY + tweakVerticalAxisLabel;
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`leftText--${i}`}
               fontWeight={fontWeightEmphasis}
               opacity={i < 4 ? 100 : 0}
               x={textX}
@@ -162,7 +162,7 @@ export default function Column() {
 
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`rightText--${i}`}
               fontWeight={fontWeightEmphasis}
               opacity={i < 6 ? 100 : 0}
               x={textX}
@@ -222,6 +222,7 @@ export default function Column() {
           const height = gridBottom - top;
           return (
             <rect
+              key={`bars-lines--${i}`}
               x={left}
               y={top}
               width={gridCellX}
@@ -249,6 +250,7 @@ export default function Column() {
           return (
             <path
               //mask="url(#gridMask)"
+              key={`total-stepLine--${i}`}
               stroke={colorGrid}
               strokeWidth={strokeWidthMedium}
               fill="none"
@@ -264,7 +266,8 @@ export default function Column() {
         {ticks.map((dependents, i) => { //is dependents necessary?
           return (
             <line
-              //key={`horizontal-gridline-${i}`}
+              key={`horizontal-gridline-${i}`}
+
               x1={gridLeft + xTicks[i] * gridCellX - halfStrokeWidth}
               x2={gridRight + halfStrokeWidth}
               y1={gridBottom - i * gridCellY}

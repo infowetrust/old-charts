@@ -73,9 +73,10 @@ export default function Palaestina6() {
         {independents.map((independents, i) => {
           return (
             <line
+              key={`gridline-horizontal--${i}`}
               stroke={colorY}
               strokeWidth={stroke}
-              stroke-dasharray="14, 10"
+              strokeDasharray="14, 10"
               x1={gridLeft}
               x2={gridRight}
               y1={gridTop + i * gridCellY}
@@ -100,6 +101,7 @@ export default function Palaestina6() {
           const height = gridCellY;
           return (
             <rect
+              key={`bars--${i}`}
               x={left}
               y={top}
               width={barLength}
@@ -125,7 +127,7 @@ export default function Palaestina6() {
           const text =
             i === 4 ? Kapital + " Millionen" : Kapital;
           return (
-            <text x={textX} y={textY} className={"palaestinaTitle"}  >
+            <text x={textX} y={textY} className={"palaestinaTitle"} key={`data-label--${i}`}  >
               <tspan fontSize="32" textAnchor="start">{text}</tspan>
             </text>
           );
@@ -146,7 +148,7 @@ export default function Palaestina6() {
             i < 2 ? gridTop + .55 * gridCellY + i * gridCellY
               : gridTop + .3 * gridCellY + i * gridCellY + verticalCenter
           return (
-            <text className={"palaestinaLabel"} textAnchor={"start"}>
+            <text className={"palaestinaLabel"} textAnchor={"start"} key={`investor-label--${i}`}>
               <tspan x={textX} y={textY} fontSize="26" textDecoration={"underline"}>{investor}</tspan>
               <tspan y={textY} fontSize="22" >{detail[i]}</tspan>
               <tspan x={textX} y={textY + 24} fontSize="22" >{detail2[i]}</tspan>

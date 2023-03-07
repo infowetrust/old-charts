@@ -114,6 +114,7 @@ export default function Bar(props: Props) {
 
           return (
             <rect
+              key={`1914-blueBars--${i}`}
               x={left}
               y={top}
               width={length}
@@ -136,6 +137,7 @@ export default function Bar(props: Props) {
 
           return (
             <rect
+              key={`1919-goldBars--${i}`}
               x={left}
               y={top}
               width={length}
@@ -165,7 +167,7 @@ export default function Bar(props: Props) {
           const rank = i + 1;
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`leftText-rank--${i}`}
               textAnchor="end"
               fontFamily="monospace" //tk not working
               x={textX}
@@ -182,7 +184,7 @@ export default function Bar(props: Props) {
 
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`leftText-state--${i}`}
               textAnchor="left"
               x={textX}
               y={textY}
@@ -197,7 +199,7 @@ export default function Bar(props: Props) {
           const textY = marginTop + i * gridCellY + gridCellY / 2 + verticalOffset;
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`leftText-percent1914--${i}`}
               textAnchor="end"
               x={textX}
               y={textY}
@@ -213,7 +215,7 @@ export default function Bar(props: Props) {
 
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`leftText-percent1919--${i}`}
               textAnchor="end"
               x={textX}
               y={textY}

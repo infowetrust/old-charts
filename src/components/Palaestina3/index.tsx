@@ -75,7 +75,7 @@ export default function Palaestina3() {
             <line
               stroke="black"
               strokeWidth={stroke}
-              stroke-dasharray="14, 10"
+              strokeDasharray="14, 10"
               x1={gridLeft}
               x2={gridRight}
               y1={gridTop + i * gridCellY}

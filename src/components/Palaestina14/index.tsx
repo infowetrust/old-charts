@@ -142,6 +142,7 @@ export default function Palaestina14() {
           const dashPattern = i === 1 ? "7,3" : "0";
           return (
             <line
+              key={`gridline-vertical--${i}`}
               stroke={colorY}
               strokeWidth={stroke}
               strokeDasharray={dashPattern}
@@ -166,7 +167,7 @@ export default function Palaestina14() {
           const textX = insetLeft + (i + 1.5) * gridCellX;
           const textY = columnCanvasTop + 20;
           return (
-            <text x={textX} y={textY} className={"palaestinaTitle"} letterSpacing={0} stroke={"none"} fontWeight={700}>
+            <text x={textX} y={textY} className={"palaestinaTitle"} letterSpacing={0} stroke={"none"} fontWeight={700} key={`text-year--${i}`}>
               <tspan fontSize="16" textAnchor="middle" >{year}</tspan>
             </text>
           );
@@ -177,7 +178,7 @@ export default function Palaestina14() {
           const textY = insetFoundationTop - _scaleY(tick);
           return (
             <g>
-              <text x={textX} y={textY + 4} className={"palaestinaTitle"} letterSpacing={0} stroke={"none"} fontWeight={700}>
+              <text x={textX} y={textY + 4} className={"palaestinaTitle"} letterSpacing={0} stroke={"none"} fontWeight={700} key={`text-tick--${i}`}>
                 <tspan fontSize="10" textAnchor="middle" >{tick}</tspan>
               </text>
               <line
@@ -203,6 +204,7 @@ export default function Palaestina14() {
           const height = gridCellY;
           return (
             <rect
+              key={`bars-dunam--${i}`}
               x={left}
               y={top}
               width={barLength}
@@ -224,6 +226,7 @@ export default function Palaestina14() {
           const columnWidth = gridCellX;
           return (
             <rect
+              key={`columns--${i}`}
               x={left}
               y={top}
               width={columnWidth}
@@ -281,18 +284,18 @@ export default function Palaestina14() {
               : "none";
 
           return (
-            <g stroke={insetColor} strokeWidth={stroke * 1.5} strokeLinecap="round">
-              <line x1={left} x2={left} y1={bottom} y2={top}>{bar}</line>
-              <line x1={left} x2={left + barLength} y1={top} y2={top}>{bar}</line>
-              <line x1={left + barLength} x2={left + barLength} y1={top} y2={bottom}>{bar}</line>
+            <g stroke={insetColor} strokeWidth={stroke * 1.5} strokeLinecap="round" key={`group--${i}`}>
+              <line x1={left} x2={left} y1={bottom} y2={top} key={`bar-line-left-${i}`}>{bar}</line>
+              <line x1={left} x2={left + barLength} y1={top} y2={top} key={`bar-line-top-${i}`}>{bar}</line>
+              <line x1={left + barLength} x2={left + barLength} y1={top} y2={bottom} key={`bar-line-right-${i}`}>{bar}</line>
               <path d={pathD1} fill="none" markerEnd="url(#arrow)" />
-              <text x={right + textShift} y={top + 15} className={"palaestinaInset"} stroke={"none"}>
+              <text x={right + textShift} y={top + 15} className={"palaestinaInset"} stroke={"none"} key={`text-dunam--${i}`}>
                 <tspan fontSize="14" textAnchor="start" >{textA}</tspan>
                 <tspan fontSize="12" textAnchor="start" >{textB}</tspan>
                 <tspan fontSize="14" textAnchor="start" >{textC}</tspan>
                 <tspan fontSize="14" textAnchor="start" x={right + textShift} dy="14">{textPercent}</tspan>
               </text>
-              <text x={left + (i - 2) * 30} y={top + 24} className={"palaestinaInset"} stroke={"none"}>
+              <text x={left + (i - 2) * 30} y={top + 24} className={"palaestinaInset"} stroke={"none"} key={`text-label--${i}`}>
                 <tspan fontSize="18" textAnchor="middle" letterSpacing={-1}>{textLabel}</tspan>
               </text>
             </g>
@@ -306,7 +309,7 @@ export default function Palaestina14() {
           const textY = gridTop + i * gridCellY + 24;
           const text = i === 5 ? year + " (Anfang)" : year;
           return (
-            <text x={textX} y={textY} className={"palaestinaTitle"} fontWeight={800} >
+            <text x={textX} y={textY} className={"palaestinaTitle"} fontWeight={800} key={`text-year-${i}`}>
               <tspan fontSize="18" textAnchor="start">{text}</tspan>
             </text>
           );
@@ -319,7 +322,7 @@ export default function Palaestina14() {
           const thousand = dunam / 1000;
           const text = i === nIndependentsA - 1 ? " 000 Dunam" : " 000";
           return (
-            <text x={textX} y={textY} className={"palaestinaTitle"}  >
+            <text x={textX} y={textY} className={"palaestinaTitle"} key={`text-dunam--${i}`}>
               <tspan fontSize="26" textAnchor="end">{thousand}</tspan>
               <tspan fontSize="24" textAnchor="end">{text}</tspan>
             </text>
@@ -330,8 +333,9 @@ export default function Palaestina14() {
           const center = insetLeft + (i + 1.5) * gridCellX;
           const middle = insetFoundationTop - _scaleY(circle);
           return (
-            <g>
+            <g key={`group-circle--${i}`}>
               <circle
+                key={`white-circle--${i}`}
                 cx={center}
                 cy={middle}
                 r={radius}
@@ -339,7 +343,7 @@ export default function Palaestina14() {
                 strokeWidth={stroke}
                 fill={colorZ}
               />
-              <text x={center - 1} y={middle + 4} className={"palaestinaTitle"}  >
+              <text x={center - 1} y={middle + 4} className={"palaestinaTitle"} key={`text-circle--${i}`}>
                 <tspan fontSize="11" textAnchor="middle" fontWeight={800}>{circle}</tspan>
               </text>
             </g>
@@ -349,21 +353,20 @@ export default function Palaestina14() {
         })}
 
         {/* 6. Title and legend*/}
-        <g stroke={colorB} z-index="10" strokeWidth="6">
-          <line
-            x1={gridCenter - 280} x2={gridCenter + 280}
-            y1={titleUnderlineY} y2={titleUnderlineY} />
-        </g>
+
+        {/* red title underline */}
+        <line
+          stroke={colorB} z-index="10" strokeWidth="6" x1={gridCenter - 280} x2={gridCenter + 280}
+          y1={titleUnderlineY} y2={titleUnderlineY} />
+
 
         <text className={"palaestinaTitle"}>
           <tspan x={gridLeft + (gridWidth / 2)} y={titleY} fontSize={39}>Der jüdische Bodenbesitz in Palästina</tspan>
           <tspan x={gridLeft + (gridWidth / 2)} dy={40} fontSize={26}>Wachstum von 1890 bis 1926</tspan>
-        </text>
-
-        <text className={"palaestinaTitle"} >
           <tspan x={gridLeft + 160} y={150} fontSize={18} letterSpacing={-.5}>Ziffern in Dunam</tspan>
           <tspan x={gridLeft + 160} dy={21} fontSize={18} letterSpacing={-.5}>(1/11 Hektar)</tspan>
         </text>
+
 
         {/* inset column chart */}
         <text className={"palaestinaTitle"} fontWeight={700} >

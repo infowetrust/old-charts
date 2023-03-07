@@ -38,7 +38,7 @@ export default function Stackpop() {
 
   const marginTop = 150;
   const marginBottom = 50;
-  const marginLeft = 25;
+  const marginLeft = 35;
   const marginRight = marginLeft;
 
   const svgWidth = gridWidth + marginLeft + marginRight;
@@ -106,7 +106,7 @@ export default function Stackpop() {
               y2={_scaleY(tick)}
               stroke={colorA}
               strokeWidth={2}
-              stroke-linecap={"round"}
+              strokeLinecap={"round"}
             >
             </line>
           );
@@ -118,8 +118,9 @@ export default function Stackpop() {
           const top = _scaleY(100);
           const height = gridBottom - top;
           return (
-            <g>
+            <g key={`bar-stroke--${i}`}>
               <rect
+                key={`bar-square-stroke--${i}`}
                 x={left}
                 y={top}
                 width={gridCellX * narrow}
@@ -131,6 +132,7 @@ export default function Stackpop() {
                 {bar}
               </rect>
               <rect
+                key={`bar-insideCurve-stroke--${i}`}
                 x={left}
                 y={top}
                 rx="3" ry="3"
@@ -154,6 +156,7 @@ export default function Stackpop() {
           const height = gridBottom - top;
           return (
             <rect
+              key={`bar-circles-stroke--${i}`}
               x={left}
               y={top}
               width={gridCellX * narrow}
@@ -173,6 +176,7 @@ export default function Stackpop() {
           const height = gridBottom - top;
           return (
             <rect
+              key={`bar-black--${i}`}
               x={left}
               y={top}
               width={gridCellX * narrow}

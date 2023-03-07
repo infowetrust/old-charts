@@ -69,7 +69,7 @@ export default function Gold() {
         {/* background */}
         <rect x="0" y="0" width={svgWidth} height={svgHeight} fill={colorB} />
         {/* 3. Grid labels*/}
-        <g strokeWidth="3" stroke-dasharray="9, 6" strokeLinecap="round" stroke={colorA}
+        <g strokeWidth="3" strokeDasharray="9, 6" strokeLinecap="round" stroke={colorA}
         >
           <line
             x1={column[0]} x2={column[0]}
@@ -81,12 +81,12 @@ export default function Gold() {
           />
         </g>
         <text y={marginTop * .4} textAnchor="middle" fill={colorA} fontWeight="800">
-          <tspan x={column[0]} font-size={15} fontFamily="Courier New">&nbsp;100%</tspan>
-          <tspan x={column[3]} font-size={15} fontFamily="Courier New" >PAR</tspan>
+          <tspan x={column[0]} fontSize={15} fontFamily="Courier New">&nbsp;100%</tspan>
+          <tspan x={column[3]} fontSize={15} fontFamily="Courier New" >PAR</tspan>
         </text>
         <text y={marginTop * .8} textAnchor="middle" fill={colorA} fontWeight="800">
-          <tspan x={(column[0] + column[1]) / 2} font-size={15} fontFamily="Courier New">RATIO OF GOLD TO NOTES</tspan>
-          <tspan x={(column[2] + column[3]) / 2} font-size={15} fontFamily="Courier New" >EXCHANGE IN PER CENT OF PAR</tspan>
+          <tspan x={(column[0] + column[1]) / 2} fontSize={15} fontFamily="Courier New">RATIO OF GOLD TO NOTES</tspan>
+          <tspan x={(column[2] + column[3]) / 2} fontSize={15} fontFamily="Courier New" >EXCHANGE IN PER CENT OF PAR</tspan>
         </text>
 
         {/* 4. Data marks*/}
@@ -97,6 +97,7 @@ export default function Gold() {
 
           return (
             <rect
+              key={`bars-left-ratio--${i}`}
               x={zero - length} y={top}
               width={length} height={barHeight}
               rx={barRx}
@@ -114,6 +115,7 @@ export default function Gold() {
 
           return (
             <rect
+              key={`bars-right-par--${i}`}
               x={zero} y={top}
               width={length} height={barHeight}
               rx={barRx}
@@ -129,7 +131,13 @@ export default function Gold() {
           const textX = (column[1] + column[2]) / 2;
           const textY = marginTop + barMargin + (barHeight / 2) + i * gridCellY + verticalOffset;
           return (
-            <text x={textX} y={textY} textAnchor="middle" fill={colorA}>
+            <text
+              key={`countryText--${i}`}
+              x={textX}
+              y={textY}
+              textAnchor="middle"
+              fill={colorA}
+            >
               <tspan fontFamily="Courier New" fontSize="20" fontWeight="800">{country}</tspan>
             </text>
           );
@@ -140,12 +148,12 @@ export default function Gold() {
           const textY = marginTop + barMargin + (barHeight / 2) + i * gridCellY + verticalOffset;
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`ratio-label--${i}`}
               textAnchor="start"
               x={textX} y={textY}
               fontWeight="800"
             >
-              <tspan fontFamily="Courier New" font-style="heavy" fill={colorB}>{ratio}</tspan>
+              <tspan fontFamily="Courier New" fontStyle="heavy" fill={colorB}>{ratio}</tspan>
             </text>
           );
         })}
@@ -155,7 +163,7 @@ export default function Gold() {
           const textY = marginTop + barMargin + (barHeight / 2) + i * gridCellY + verticalOffset;
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`par-label--${i}`}
               textAnchor="end"
               x={textX} y={textY}
               fontWeight="800"
