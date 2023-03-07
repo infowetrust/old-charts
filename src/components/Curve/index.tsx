@@ -171,7 +171,7 @@ export default function Curve(props: Props) {
 
           return (
             <text
-              key={`bottomText--${i}`}
+              key={`leftText--${i}`}
               fontWeight={700}
               x={textOffsetX}
               y={textOffsetY}

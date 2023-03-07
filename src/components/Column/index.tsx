@@ -176,9 +176,9 @@ export default function Column() {
 
         {/* Chart Labels */}
         <text y={gridTop} textAnchor="middle"        >
-          <tspan x={gridLeft - channelSide / 2} dy="0" font-size={h4}>Millions</tspan>
-          <tspan x={gridLeft - channelSide / 2} dy="1.2em" font-size={h4}>de</tspan>
-          <tspan x={gridLeft - channelSide / 2} dy="1.2em" font-size={h4} >Tonnes</tspan>
+          <tspan x={gridLeft - channelSide / 2} dy="0" fontSize={h4}>Millions</tspan>
+          <tspan x={gridLeft - channelSide / 2} dy="1.2em" fontSize={h4}>de</tspan>
+          <tspan x={gridLeft - channelSide / 2} dy="1.2em" fontSize={h4} >Tonnes</tspan>
         </text>
         <line
           x1={gridLeft - channelSide / 2 - underLine / 2}
@@ -191,9 +191,9 @@ export default function Column() {
         />
 
         <text y={gridTop} textAnchor="middle"        >
-          <tspan x={gridRight + channelSide / 2} dy="0" font-size={h4}>Millions</tspan>
-          <tspan x={gridRight + channelSide / 2} dy="1.2em" font-size={h4}>de</tspan>
-          <tspan x={gridRight + channelSide / 2} dy="1.2em" font-size={h4} >Tonnes</tspan>
+          <tspan x={gridRight + channelSide / 2} dy="0" fontSize={h4}>Millions</tspan>
+          <tspan x={gridRight + channelSide / 2} dy="1.2em" fontSize={h4}>de</tspan>
+          <tspan x={gridRight + channelSide / 2} dy="1.2em" fontSize={h4} >Tonnes</tspan>
         </text>
         <line
           x1={gridRight + channelSide / 2 - underLine / 2}
@@ -286,9 +286,9 @@ export default function Column() {
           y={gridTop + 33}
           textAnchor="middle"
         >
-          <tspan x={gridLeft + (gridWidth / 2)} dy="0" font-size={h1}>Port de Paris</tspan>
+          <tspan x={gridLeft + (gridWidth / 2)} dy="0" fontSize={h1}>Port de Paris</tspan>
           <tspan x={gridLeft + (gridWidth / 2)} dy={h2}>Mouvement de la Navigation</tspan>
-          <tspan x={gridLeft + (gridWidth / 2)} dy={h2} font-style="italic">( Tonnage effectif )</tspan>
+          <tspan x={gridLeft + (gridWidth / 2)} dy={h2} fontStyle="italic">( Tonnage effectif )</tspan>
         </text>
 
         <line

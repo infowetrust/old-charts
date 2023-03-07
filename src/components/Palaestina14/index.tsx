@@ -177,11 +177,12 @@ export default function Palaestina14() {
           const textX = insetLeft + gridCellX / 2;
           const textY = insetFoundationTop - _scaleY(tick);
           return (
-            <g>
-              <text x={textX} y={textY + 4} className={"palaestinaTitle"} letterSpacing={0} stroke={"none"} fontWeight={700} key={`text-tick--${i}`}>
+            <g key={`tick--${i}`}>
+              <text key={`text-tick--${i}`} x={textX} y={textY + 4} className={"palaestinaTitle"} letterSpacing={0} stroke={"none"} fontWeight={700} >
                 <tspan fontSize="10" textAnchor="middle" >{tick}</tspan>
               </text>
               <line
+                key={`line-tick--${i}`}
                 stroke={colorY}
                 strokeWidth={stroke}
                 x1={insetLeft + .9 * gridCellX}
@@ -257,7 +258,6 @@ export default function Palaestina14() {
         {dependentsKeren.map((bar, i) => {
           const left = gridLeft + 100;
           const barLength = _scaleX(bar) * 2;
-          const center = left + barLength / 2;
           const right = left + barLength;
 
           const top = gridTop + (i + .5) * gridCellY;
@@ -284,16 +284,38 @@ export default function Palaestina14() {
               : "none";
 
           return (
-            <g stroke={insetColor} strokeWidth={stroke * 1.5} strokeLinecap="round" key={`group--${i}`}>
-              <line x1={left} x2={left} y1={bottom} y2={top} key={`bar-line-left-${i}`}>{bar}</line>
-              <line x1={left} x2={left + barLength} y1={top} y2={top} key={`bar-line-top-${i}`}>{bar}</line>
-              <line x1={left + barLength} x2={left + barLength} y1={top} y2={bottom} key={`bar-line-right-${i}`}>{bar}</line>
+            <g key={`dependentsKeren--${i}`} stroke={insetColor} strokeWidth={stroke * 1.5} strokeLinecap="round" >
+              <line key={`bar-line-left-${i}`}
+                x1={left} x2={left}
+                y1={bottom} y2={top}
+              >
+                {bar}
+              </line>
+              <line key={`bar-line-top-${i}`}
+                x1={left}
+                x2={isNaN(barLength) ? "0" : left + barLength}
+                y1={top} y2={top}
+              >
+                {bar}
+              </line>
+
+              <line key={`bar-line-right-${i}`}
+                x1={isNaN(barLength) ? "0" : left + barLength}
+                x2={isNaN(barLength) ? "0" : left + barLength}
+                y1={top} y2={bottom}
+              >
+                {bar}
+              </line>
+
               <path d={pathD1} fill="none" markerEnd="url(#arrow)" />
-              <text x={right + textShift} y={top + 15} className={"palaestinaInset"} stroke={"none"} key={`text-dunam--${i}`}>
+              <text className={"palaestinaInset"} key={`text-dunam--${i}`}
+                x={isNaN(barLength) ? "0" : right + textShift}
+                y={top + 15} stroke={"none"}
+              >
                 <tspan fontSize="14" textAnchor="start" >{textA}</tspan>
                 <tspan fontSize="12" textAnchor="start" >{textB}</tspan>
                 <tspan fontSize="14" textAnchor="start" >{textC}</tspan>
-                <tspan fontSize="14" textAnchor="start" x={right + textShift} dy="14">{textPercent}</tspan>
+                <tspan fontSize="14" textAnchor="start" x={isNaN(barLength) ? "0" : right + textShift} dy="14">{textPercent}</tspan>
               </text>
               <text x={left + (i - 2) * 30} y={top + 24} className={"palaestinaInset"} stroke={"none"} key={`text-label--${i}`}>
                 <tspan fontSize="18" textAnchor="middle" letterSpacing={-1}>{textLabel}</tspan>
@@ -322,7 +344,7 @@ export default function Palaestina14() {
           const thousand = dunam / 1000;
           const text = i === nIndependentsA - 1 ? " 000 Dunam" : " 000";
           return (
-            <text x={textX} y={textY} className={"palaestinaTitle"} key={`text-dunam--${i}`}>
+            <text key={`textDunam--${i}`} x={textX} y={textY} className={"palaestinaTitle"} >
               <tspan fontSize="26" textAnchor="end">{thousand}</tspan>
               <tspan fontSize="24" textAnchor="end">{text}</tspan>
             </text>
