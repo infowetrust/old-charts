@@ -117,6 +117,7 @@ export default function Curve(props: Props) {
         {/* data */}
         {typeof _tonsLine === "string" && (
           <path
+            key={"path"}
             stroke={lineColor || "pink"}
             strokeWidth={5}
             fill="none"
@@ -125,6 +126,7 @@ export default function Curve(props: Props) {
             mask="url(#curveMask)" // https://developer.mozilla.org/en-US/docs/Web/SVG/Element/mask
           />
         )}
+
         {/* top text */}
         {tons.map((entry, i) => {
           const centeringOffset = 5; // hardcoded
@@ -212,7 +214,7 @@ export default function Curve(props: Props) {
           {_tonsSum}
         </text>
       </svg>
-    </div>
+    </div >
   );
 
 
