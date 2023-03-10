@@ -7,6 +7,7 @@ import Gridbridge from "./components/Gridbridge"
 import Stackpop from "./components/Stackpop"
 import Palaestina14 from "./components/Palaestina14"
 import Palaestina6 from "./components/Palaestina6"
+import Fan from "./components/Fan"
 
 export default function App() {
   const colors = ["red"]
@@ -22,7 +23,13 @@ export default function App() {
       </div> */}
       {/* See https://codepen.io/helmsmith/pen/xbBEWy
       and https://css-tricks.com/basics-css-blend-modes/ */}
+
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
+
+      {/* <div id="Fan" className="line"></div>
+      <Fan />
+      <p>New chart!</p> */}
+
       <div id="Palaestina" className="line"></div>
       <Palaestina6 />
       <p>Davis Trietsch's folio, <i>Pälastina</i>  (Berlin: 1926), pairs a score of clever bar charts with line graphs and geographic maps to convey demographic, geographic, and financial statistics.</p>
