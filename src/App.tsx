@@ -26,9 +26,14 @@ export default function App() {
 
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
 
-      {/* <div id="Fan" className="line"></div>
+      <div id="Fan" className="line"></div>
       <Fan />
-      <p>New chart!</p> */}
+      <p>A technical description of this chart (e.g. "comparative overlapping polar-area donut") cannot convey the excitement of its arched design, pattern-fill yellows (with a black Nevada!), and careful annotation.</p>
+      <p>The layered and masked colors, variety of text sizs and placements, and overall challenge of digitally designing in polar coordinates reveals the brilliance of the original composition.</p>
+      <p>This graphic was inspired by "Chart 44-a" from <i>A Graphic Analysis of the Census of Manufactures</i> (1923) by the National Industrial Conference Board. Scroll down to see another digitization from the same publication.</p>
+      <p>Chart 44-a was presented in a full-page spread that included a choropleth map (below) and data-table (on the facing righthand page). The map was colored according to salaried employees, which the shown chart is ordered by. The table was ordered alphabetically by state.</p>
+
+      <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Fan/index.tsx">CHART CODE</a></p>
 
       <div id="Palaestina" className="line"></div>
       <Palaestina6 />

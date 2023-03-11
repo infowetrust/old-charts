@@ -221,6 +221,10 @@ margin-right: auto; */
   
 }
 
+.nicb {
+  font-family: 'Courier New', arial, sans-serif;
+}
+
 svg,
 svg > text {
   font-size: 1em;
