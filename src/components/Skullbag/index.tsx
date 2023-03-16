@@ -55,6 +55,15 @@ v ${columnHeight * 1 / 11}
 h ${-columnWidth * 2.5 / 8}
 Z
   `
+  const skullGridPath = `
+  M ${columnTwoLeft} ${columnTop}
+h ${columnWidth}
+v ${columnHeight * 10 / 11}
+h ${-columnWidth * 3 / 8}
+v ${columnHeight * 1 / 11}
+h ${-columnWidth * 5 / 8}
+Z
+  `
   const skullPath =
     <g fill={"none"} stroke={colorA} strokeWidth={stroke} strokeMiterlimit="10">
       <path d="m16.24.63c3.53,0,7.59.98,9.4,1.76s4.36,2.47,5.63,5.04c.6,1.21,2.84,6.02,2.79,8.47s-2.2,9.35-3.28,12.2c-1.08,2.84-2.25,6.17-2.69,7.3s-3.08,6.86-2.94,7.59,3.09,5.78,2.79,6.42-5.53,6.71-6.56,6.61-2.89-.98-3.28-.98-2.06,1.03-2.89.98-4.75-1.13-5.63-2.06-3.13-2.74-3.04-3.48,2.4-5.19,2.3-6.27-3.77-8.38-4.11-9.16S.82,26.44.77,25.46s-.29-10.86,0-12c.62-2.42,1.91-6.86,3.72-8.72,1.04-1.07,3.69-3.27,4.67-3.56s4.6-.56,7.09-.56Z" />
@@ -106,7 +115,7 @@ Z
         {/* 4. Data marks*/}
         {/* <rect fill="url(#Bag)" x={marginLeft + padding} y="250" stroke="none" width="300" height="532" /> */}
         <path fill="url(#Lluks)" d={bagGridPath} />
-        <rect fill="url(#Skull)" x={columnTwoLeft} y={columnTop} stroke="none" width={columnWidth} height={columnHeight} />
+        <path fill="url(#Skull)" d={skullGridPath} />
 
         {/* 5. Data labels*/}
 

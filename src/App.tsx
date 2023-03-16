@@ -28,9 +28,9 @@ export default function App() {
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
       <div id="skullbag" className="line"></div>
       <Skullbag />
-      <p>A symbol is flipped upside-down to make a graphic connection between war profiteering and deaths.</p>
+      <p>A symbol is flipped upside-down to make a graphic connection between war profiteering and deaths. Its accompanying text began by stating that "the desire for profits makes men do even stranger things than destroy goods."</p>
       <p><i>RICH MAN, POOR MAN: pictures of a paradox</i>  (New York: 1935), is an all-blue book by Ryllis Alexander Goslin and Omar Pancoast Goslin, published by The People's League for Economic Security. It boasts "thirty dynamic, full-page charts" by artist Delos Blackmar.</p>
-      <p>My copy of the book is signed by its two authors and Delos, who dedicated it: "With sincere prayer for the welfare & education of our suffering human-kind!"</p>
+      <p>My copy of the book is signed by its two authors and Delos Blackmar, who dedicated it: "With sincere prayer for the welfare & education of our suffering human-kind!"</p>
 
       <p className="tagline"><a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/Skullbag/index.tsx">CHART CODE</a></p>
 
