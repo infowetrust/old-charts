@@ -8,6 +8,7 @@ import Stackpop from "./components/Stackpop"
 import Palaestina14 from "./components/Palaestina14"
 import Palaestina6 from "./components/Palaestina6"
 import Fan from "./components/Fan"
+import Skullbag from "./components/Skullbag"
 
 export default function App() {
   const colors = ["red"]
@@ -25,6 +26,8 @@ export default function App() {
       and https://css-tricks.com/basics-css-blend-modes/ */}
 
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
+      {/* <div id="skullbag" className="line"></div>
+      <Skullbag /> */}
 
       <div id="Fan" className="line"></div>
       <Fan />

@@ -218,7 +218,12 @@ margin-right: auto; */
   text-anchor: start;
   fill: var(--cheyssonBlack);
   letter-spacing: -1px;
-  
+}
+
+.futuraPt {
+font-family: "futura-pt", sans-serif;
+font-weight: 500;
+font-style: normal;
 }
 
 .nicb {
