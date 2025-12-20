@@ -9,6 +9,7 @@ import Palaestina14 from "./components/Palaestina14"
 import Palaestina6 from "./components/Palaestina6"
 import Fan from "./components/Fan"
 import Skullbag from "./components/Skullbag"
+import PerozzoSweden from "./components/PerozzoSweden"
 
 export default function App() {
   const colors = ["red"]
@@ -26,6 +27,19 @@ export default function App() {
       and https://css-tricks.com/basics-css-blend-modes/ */}
 
       <p className="tagline ">Analog excellence digitized for the web by RJ&nbsp;Andrews and friends.</p>
+
+      <div id="perozzo-sweden" className="line"></div>
+      <div className="chartWrap">
+        <PerozzoSweden />
+      </div>
+      <p>Description coming soon.</p>
+      <p className="tagline">
+        <a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/PerozzoSweden/index.tsx">
+          CHART CODE
+        </a>
+      </p>
+
+
       <div id="skullbag" className="line"></div>
       <Skullbag />
       <p>A symbol is flipped upside-down to make a graphic connection between war profiteering and deaths. Its accompanying text began by stating that "the desire for profits makes men do even stranger things than destroy goods."</p>

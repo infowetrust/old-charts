@@ -243,3 +243,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.chartWrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0px;
+  text-align: center; /* centers the inline-block card */
+}
+
+.chartCard {
+  display: inline-block;
+  background: #fffff0;
+  padding: 36px;
+}
+
+/* IMPORTANT: don't force svg to 100% width inside an inline-block */
+.chartCard svg {
+  display: block;
+  width: 1100px;     /* or 1000px — tweak */
+  height: auto;
+  max-width: 100%;
+}

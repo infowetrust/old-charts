@@ -40,3 +40,21 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+
+.chartWrap {
+  max-width: 980px;    /* tweakable: makes overall chart smaller */
+  margin: 20 auto;
+  padding: 24px 16px;
+}
+
+.chartCard {
+  display: inline-block;      /* shrink-wraps to SVG */
+  background: red;        /* ivory */
+  padding: 24px;              /* tweakable: “paper margin” */
+}
+
+.chartCard svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
