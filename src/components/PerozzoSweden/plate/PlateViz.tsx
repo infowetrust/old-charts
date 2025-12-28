@@ -30,6 +30,7 @@ import InteractionLayer from "./layers/InteractionLayer";
 
 import { parseSwedenCsv, makeSwedenSurface } from "../core/sweden";
 import { makeFrame3D } from "../core/frame3d";
+import { HOVER_HIGHLIGHT_MULT, HOVER_DIM_MULT } from "./vizConfig";
 
 type ContourPointFile = { year: number; age: number };
 type ContourFile = { level: number; points: ContourPointFile[] };
@@ -61,8 +62,15 @@ const LINE_THICK_OPACITY = 0.9;
 const HOVER_RADIUS_PX = 16;
 const HOVER_MARGIN_PX = 16;
 
-const AXIS_LABEL_STYLE = {
-  color: "#282828",
+export interface AxisLabelStyle {
+  color?: string; // made optional
+  fontFamily: string;
+  fontSize: number;
+  fontWeight: number;
+  opacity: number;
+}
+
+const AXIS_LABEL_STYLE: AxisLabelStyle = {
   fontFamily: "garamond, serif",
   fontSize: 8,
   fontWeight: 600 as 400 | 500 | 600 | 700,
@@ -180,7 +188,7 @@ const TOOLTIP_WIDTH = 120;
 const TOOLTIP_HEIGHT = 96;
 const TOOLTIP_STYLE = {
   accent: vizStyle.debugPoints.fill,
-  borderWidth: 2,
+  borderWidth: 1.5,
   bg: "rgba(255,255,240,0.92)",
   textColor: "#222",
   fontFamily: AXIS_LABEL_STYLE.fontFamily,
@@ -769,6 +777,13 @@ export default function PlateViz({
     fontWeight: TOOLTIP_STYLE.fontWeight,
     opacity: TOOLTIP_STYLE.opacity,
   };
+  const focusYear = hover?.year ?? null;
+  const focusAge = hover?.age ?? null;
+  const focusBirthYear = hover ? hover.year - hover.age : null;
+  const hoverFocus =
+    focusYear !== null && focusAge !== null && focusBirthYear !== null
+      ? { year: focusYear, age: focusAge, birthYear: focusBirthYear }
+      : null;
   const ageStart = hover ? Math.max(0, hover.age - 4) : 0;
   const ageLineText =
     hover && hover.age === 0
@@ -915,6 +930,11 @@ export default function PlateViz({
                 contourPolylines2D={model.contourPolylines2D}
                 vizStyle={linesVizStyle}
                 projectedSurface={model.projectedSurface}
+                focus={hoverFocus}
+                hoverOpacity={{
+                  highlightMult: HOVER_HIGHLIGHT_MULT,
+                  dimMult: HOVER_DIM_MULT,
+                }}
                 showCohortLines={layersEnabled.cohortLines}
               />
             )}
@@ -925,7 +945,7 @@ export default function PlateViz({
                 years={model.years}
                 minYearExt={model.minYearExt}
                 maxYearExt={model.maxYearExt}
-                axisLabelStyle={AXIS_LABEL_STYLE}
+                axisLabelBaseStyle={AXIS_LABEL_STYLE}
                 axisLabelLayout={AXIS_LABEL_LAYOUT}
                 vizStyle={{
                   ages: { stroke: vizStyle.ages.stroke },
@@ -941,6 +961,7 @@ export default function PlateViz({
                 hover={hover ? { x: hover.x, y: hover.y } : null}
                 accentColor={TOOLTIP_STYLE.accent}
                 radius={vizStyle.debugPoints.radius * 2}
+                strokeWidth={TOOLTIP_STYLE.borderWidth}
               />
             )}
           </g>
@@ -956,12 +977,12 @@ export default function PlateViz({
               maxWidth: TOOLTIP_WIDTH,
               background: TOOLTIP_STYLE.bg,
               border: `${TOOLTIP_STYLE.borderWidth}px solid ${TOOLTIP_STYLE.accent}`,
-              borderRadius: 10,
-              padding: "8px 10px",
+              borderRadius: 6,
+              padding: "6px 10px",
               boxShadow: "0 2px 10px rgba(0,0,0,0.12)",
               pointerEvents: "none",
               fontFamily: TOOLTIP_STYLE.fontFamily,
-              lineHeight: 1.15,
+              lineHeight: 1.05,
             }}
           >
             <div

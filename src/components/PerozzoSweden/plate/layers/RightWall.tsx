@@ -86,28 +86,28 @@ export default function RightWall({
   const wallNormal =
     shadingConfig && lightVec
       ? quadNormal(
-        frame.point(yearMax, ageStart, 0),
-        frame.point(yearMax, ageEnd, 0),
-        frame.point(yearMax, ageStart, maxSurvivors)
-      )
+          frame.point(yearMax, ageStart, 0),
+          frame.point(yearMax, ageEnd, 0),
+          frame.point(yearMax, ageStart, maxSurvivors)
+        )
       : null;
   const wallAlpha =
     shadingConfig && lightVec && wallNormal
       ? inkAlphaFromBrightness({
-        brightness: lambert(
-          wallNormal,
-          lightVec,
-          shadingConfig.ambient,
-          shadingConfig.diffuse
-        ),
-        ambient: shadingConfig.ambient,
-        diffuse: shadingConfig.diffuse,
-        steps: shadingConfig.steps,
-        inkAlphaMax: shadingConfig.inkAlphaMax,
-        gamma: shadingConfig.gamma,
-        shadowBias: shadingConfig.shadowBias,
-        alphaScale: shadingConfig.alphaScale?.rightWall ?? 1,
-      })
+          brightness: lambert(
+            wallNormal,
+            lightVec,
+            shadingConfig.ambient,
+            shadingConfig.diffuse
+          ),
+          ambient: shadingConfig.ambient,
+          diffuse: shadingConfig.diffuse,
+          steps: shadingConfig.steps,
+          inkAlphaMax: shadingConfig.inkAlphaMax,
+          gamma: shadingConfig.gamma,
+          shadowBias: shadingConfig.shadowBias,
+          alphaScale: shadingConfig.alphaScale?.rightWall ?? 1,
+        })
       : 0;
   const zSpan = frame.maxZ - frame.floorZ || 1;
   const clipPathId = "rightWallClip";

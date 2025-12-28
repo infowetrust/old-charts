@@ -27,6 +27,8 @@ type DataLinesLayerProps = {
   };
   projectedSurface: Point2D[];
   showCohortLines: boolean;
+  focus?: { year: number; age: number; birthYear: number } | null;
+  hoverOpacity?: { highlightMult: number; dimMult: number };
 };
 
 export default function DataLinesLayer({
@@ -37,7 +39,19 @@ export default function DataLinesLayer({
   vizStyle,
   projectedSurface,
   showCohortLines,
+  focus,
+  hoverOpacity,
 }: DataLinesLayerProps) {
+  const highlightMult = hoverOpacity?.highlightMult ?? 1;
+  const dimMult = hoverOpacity?.dimMult ?? 1;
+  const hasFocus = !!focus;
+
+  const applyHover = (base: number, isHit: boolean, hasFocus: boolean) => {
+    if (!hasFocus) return base;
+    const mult = isHit ? highlightMult : dimMult;
+    return Math.min(1, Math.max(0, base * mult));
+  };
+
   return (
     <g id="layer-lines">
       <g>
@@ -75,9 +89,13 @@ export default function DataLinesLayer({
                 : vizStyle.cohorts.thinWidth
             }
             strokeOpacity={
-              line.heavy
-                ? vizStyle.cohorts.thickOpacity
-                : vizStyle.cohorts.thinOpacity
+              applyHover(
+                line.heavy
+                  ? vizStyle.cohorts.thickOpacity
+                  : vizStyle.cohorts.thinOpacity,
+                !!(focus && line.birthYear === focus.birthYear),
+                hasFocus
+              )
             }
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -93,7 +111,13 @@ export default function DataLinesLayer({
             line.heavy ? vizStyle.ages.thickWidth : vizStyle.ages.thinWidth
           }
           strokeOpacity={
-            line.heavy ? vizStyle.ages.thickOpacity : vizStyle.ages.thinOpacity
+            applyHover(
+              line.heavy
+                ? vizStyle.ages.thickOpacity
+                : vizStyle.ages.thinOpacity,
+              !!(focus && line.age === focus.age),
+              hasFocus
+            )
           }
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -109,7 +133,13 @@ export default function DataLinesLayer({
             line.heavy ? vizStyle.years.thickWidth : vizStyle.years.thinWidth
           }
           strokeOpacity={
-            line.heavy ? vizStyle.years.thickOpacity : vizStyle.years.thinOpacity
+            applyHover(
+              line.heavy
+                ? vizStyle.years.thickOpacity
+                : vizStyle.years.thinOpacity,
+              !!(focus && line.year === focus.year),
+              hasFocus
+            )
           }
           strokeLinecap="round"
           strokeLinejoin="round"
