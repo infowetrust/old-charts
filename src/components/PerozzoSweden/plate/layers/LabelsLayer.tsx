@@ -4,7 +4,11 @@ import ValueIsolineLabels from "./ValueIsolineLabels";
 import YearLabels from "./YearLabels";
 import type { Frame3D } from "../../core/frame3d";
 import type { ProjectionOptions } from "../../core/geometry";
-import type { AxisLabelStyle, AxisLabelLayout } from "../vizConfig";
+import type {
+  AxisLabelStyle,
+  AxisLabelLayout,
+  AxisLabelBaseStyle,
+} from "../vizConfig";
 
 type LabelsLayerProps = {
   frame: Frame3D;
@@ -12,7 +16,7 @@ type LabelsLayerProps = {
   years: number[];
   minYearExt: number;
   maxYearExt: number;
-  axisLabelStyle: AxisLabelStyle;
+  axisLabelBaseStyle: AxisLabelBaseStyle;
   axisLabelLayout: AxisLabelLayout;
   vizStyle: {
     ages: { stroke: string };
@@ -41,12 +45,24 @@ export default function LabelsLayer({
   years,
   minYearExt,
   maxYearExt,
-  axisLabelStyle,
+  axisLabelBaseStyle,
   axisLabelLayout,
   vizStyle,
   titleProps,
   topValueByYear,
 }: LabelsLayerProps) {
+  const ageLabelStyle: AxisLabelStyle = {
+    ...axisLabelBaseStyle,
+    color: vizStyle.ages.stroke,
+  };
+  const valueLabelStyle: AxisLabelStyle = {
+    ...axisLabelBaseStyle,
+    color: vizStyle.values.stroke,
+  };
+  const yearLabelStyle: AxisLabelStyle = {
+    ...axisLabelBaseStyle,
+    color: vizStyle.years.stroke,
+  };
   return (
     <g id="layer-labels">
       <AgeLabels
@@ -57,10 +73,7 @@ export default function LabelsLayer({
         side={axisLabelLayout.side}
         tickLen={axisLabelLayout.tickLen}
         textOffset={axisLabelLayout.textOffset}
-        style={{
-          ...axisLabelStyle,
-          color: vizStyle.ages.stroke,
-        }}
+        style={ageLabelStyle}
       />
       <ValueIsolineLabels
         frame={frame}
@@ -70,10 +83,7 @@ export default function LabelsLayer({
         side={axisLabelLayout.side}
         tickLen={axisLabelLayout.tickLen}
         textOffset={axisLabelLayout.textOffset}
-        style={{
-          ...axisLabelStyle,
-          color: vizStyle.values.stroke,
-        }}
+        style={valueLabelStyle}
       />
       <YearLabels
         frame={frame}
@@ -84,10 +94,7 @@ export default function LabelsLayer({
         majorStep={25}
         tickLen={axisLabelLayout.tickLen}
         textOffset={axisLabelLayout.textOffset}
-        style={{
-          ...axisLabelStyle,
-          color: vizStyle.years.stroke,
-        }}
+        style={yearLabelStyle}
         bottomAngleDeg={-50}
         topValueByYear={topValueByYear}
       />

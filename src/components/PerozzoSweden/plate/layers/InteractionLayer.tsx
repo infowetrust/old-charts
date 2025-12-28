@@ -2,12 +2,14 @@ type InteractionLayerProps = {
   hover: { x: number; y: number } | null;
   accentColor: string;
   radius: number;
+  strokeWidth: number;
 };
 
 export default function InteractionLayer({
   hover,
   accentColor,
   radius,
+  strokeWidth,
 }: InteractionLayerProps) {
   if (!hover) {
     return <g id="layer-interaction" />;
@@ -18,7 +20,9 @@ export default function InteractionLayer({
         cx={hover.x}
         cy={hover.y}
         r={radius}
-        fill={accentColor}
+        fill={"none"}
+        stroke={accentColor}
+        strokeWidth={strokeWidth}
         opacity={1}
         pointerEvents="none"
       />

@@ -6,6 +6,8 @@ export type AxisLabelStyle = {
   opacity: number;
 };
 
+export type AxisLabelBaseStyle = Omit<AxisLabelStyle, "color">;
+
 export type AxisLabelLayout = {
   side: "left" | "right" | "both";
   tickLen: number;
@@ -20,6 +22,9 @@ export type LineStyle = {
   thickOpacity: number;
   heavyStep: number;
 };
+
+export const HOVER_HIGHLIGHT_MULT = 2;
+export const HOVER_DIM_MULT = 0.85;
 
 export function isHeavy(value: number, heavyStep: number): boolean {
   if (!heavyStep) return false;
