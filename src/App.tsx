@@ -34,7 +34,8 @@ export default function App() {
       </div>
       <p>The population of Swedish males is shown over time in three-dimensions. Calendar "census" years and age form the base. The height above the base represents the total population at each point. Blue "cohort" lines trace the survival curve of a group born around the same time.</p>
       <p>Italian statistician Luigi Perozzo published his first "stereogrammi demografici" of Sweden's population in 1880. The following year, he refreshed the design.</p>
-      <p>Perozzo's updated version was copied by Émile Levasseur (1885) and Antonio Gabaglio (1888). Simplified versions were also published by Antonio Favaro (1885) and Willard Brinton (1939). This may be the first interactive version—hover above each point to read their values. This version was inspired by conversations with Tony Chu.</p>
+      <p>Perozzo's updated version was copied by Émile Levasseur (1885) and Antonio Gabaglio (1888). Simplified versions were also published by Antonio Favaro (1885) and Willard Brinton (1939).</p>
+      <p>Inspired by conversations with Tony Chu, this may be the first interactive version—hover above each point to read their values.</p>
       <p className="tagline">
         <a target="_blank" rel="noopener" href="https://github.com/infowetrust/old-charts/blob/main/src/components/PerozzoSweden/index.tsx">
           CHART CODE
